@@ -369,7 +369,7 @@
 /mob/proc/get_contents()
 
 /mob/living/proc/lay_down()
-	set name = "Craw"
+	set name = "Crawl"
 	set category = "IC"
 
 	if(stat)
@@ -377,13 +377,13 @@
 
 	if(!under_object)
 		resting = !resting
-		to_chat(src, "<span class='notice'>Теперь вы [resting ? "лежите" : "встаете"].</span>")
+		to_chat(src, "<span class='notice'>Now you [resting ? "crawling" : "getting up"].</span>")
 		update_canmove()
 	else
 		playsound(loc, pick('sound/f13weapons/pan.ogg', 'sound/items/trayhit2.ogg', 'sound/items/trayhit1.ogg'), 50, 1)
 		Stun(1)
 		apply_damage(5, BRUTE, get_bodypart("head"))
-		to_chat(src, "<span class='danger'>Когда вы попытались встать, вы ударились о [under_object] своей головой!<br>Ай!</span>")
+		to_chat(src, "<span class='danger'>Когда вы попытались встать, вы ударились о [under_object] своей головой!<br>Ouch!</span>")
 
 /mob/living/proc/surrender()
 	set name = "Surrender"
@@ -535,6 +535,8 @@
 
 	if(lying && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, T, old_direction)
+	if(lying && !buckled)
+		makeSnowTrail(newloc, T, old_direction)
 
 /mob/living/movement_delay(ignorewalk = 0)
 	. = 0
@@ -558,6 +560,36 @@
 				. += config_walk_delay.value_cache
 		if(pulling?.drag_delay)
 			. += pulling.drag_delay
+
+/mob/living/proc/makeSnowTrail(turf/target_turf, turf/start, direction)
+	if(!has_gravity())
+		return
+	var/snow_exists = FALSE
+	for(var/obj/effect/decal/cleanable/snow_trail/C in start) //checks for blood splatter already on the floor
+		snow_exists = TRUE
+
+	if(isturf(start))
+
+		if(target_turf.snow && target_turf.snow_trail)
+			var/newdir_s = get_dir(target_turf, start)
+			if(newdir_s != direction)
+				newdir_s = newdir_s | direction
+				if(newdir_s == 3) //N + S
+					newdir_s = NORTH
+				else if(newdir_s == 12) //E + W
+					newdir_s = EAST
+			if((newdir_s in GLOB.cardinals) && (prob(50)))
+				newdir_s = turn(get_dir(target_turf, start), 180)
+			if(!snow_exists)
+				new /obj/effect/decal/cleanable/snow_trail(start, get_static_viruses())
+			for(var/obj/effect/decal/cleanable/snow_trail/TH in start)
+				if(!(newdir_s in TH.existing_dirs) && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
+					TH.existing_dirs += newdir_s
+					TH.add_overlay(image('icons/effects/blood.dmi', getSnowTrail(), dir = newdir_s))
+					TH.transfer_mob_blood_dna(src)
+
+/mob/living/proc/getSnowTrail()
+	return "strail"
 
 /mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
 	if(!has_gravity())
@@ -736,8 +768,10 @@
 	if(what.item_flags & NODROP)
 		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
-	who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
-					"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
+	if(src.special_a < 8)
+		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
+						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
+
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && Adjacent(who))
@@ -771,7 +805,8 @@
 			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
 			return
 
-		visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
+		if(src.special_a < 8)
+			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.equip_delay_other))
 			if(what && Adjacent(who) && what.mob_can_equip(who, src, final_where, TRUE, TRUE))
 				if(temporarilyRemoveItemFromInventory(what))

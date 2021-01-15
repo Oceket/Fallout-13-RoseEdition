@@ -2,7 +2,7 @@
 	name = "metal armor"
 	result = /obj/item/clothing/suit/armor/f13/metalarmor
 	reqs = list(/obj/item/stack/sheet/leather = 1,
-				/obj/item/stack/sheet/durathread = 5,
+				/obj/item/stack/sheet/cloth = 5,
 				/obj/item/stack/crafting/metalparts = 5)
 	tools = list(TOOL_WORKBENCH)
 	time = 120
@@ -24,7 +24,7 @@
 	name = "metal mask"
 	result = /obj/item/clothing/head/helmet/f13/metalmask
 	reqs = list(/obj/item/stack/sheet/leather = 1,
-				/obj/item/stack/sheet/durathread = 1,
+				/obj/item/stack/sheet/cloth = 1,
 				/obj/item/stack/crafting/metalparts = 2)
 	tools = list(TOOL_WORKBENCH)
 	time = 60
@@ -40,6 +40,18 @@
 	time = 60
 	category = CAT_CLOTHING
 	subcategory = CAT_ARMOR
+
+
+/datum/crafting_recipe/mmask
+	name = "Reinforced raider combat helmet"
+	result = /obj/item/clothing/head/helmet/f13/raidercombathelmet/mk2
+	time = 60
+	reqs = list(/obj/item/stack/crafting/goodparts = 5,
+				/obj/item/clothing/head/helmet/f13/raidercombathelmet = 1)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CLOTHING
+	subcategory = CAT_ARMOR
+
 
 /datum/crafting_recipe/leatherarmor
 	name = "leather armor"
@@ -94,6 +106,7 @@
 	time = 60
 	category = CAT_CLOTHING
 	subcategory = CAT_ARMOR
+
 
 /*
 /datum/crafting_recipe/supaflyhelm_reinforced
@@ -420,6 +433,37 @@
 	result = /obj/item/storage/belt/holster
 	reqs = list(/obj/item/stack/sheet/leather = 2,
 				/obj/item/stack/sheet/hay = 3)
+	tools = list(TOOL_WORKBENCH)
+	time = 15
+	category = CAT_CLOTHING
+	subcategory = CAT_BELTS
+	
+/datum/crafting_recipe/backsheath
+	name = "back sheath"
+	result = /obj/item/storage/backpack/backsheath
+	reqs = list(/obj/item/stack/sheet/leather = 4,
+				/obj/item/stack/sheet/cloth = 3)
+	tools = list(TOOL_WORKBENCH)
+	time = 15
+	category = CAT_CLOTHING
+	subcategory = CAT_BELTS
+
+/datum/crafting_recipe/waistsheath
+	name = "waist sheath"
+	result = /obj/item/storage/belt/waistsheath
+	reqs = list(/obj/item/stack/sheet/leather = 3,
+				/obj/item/stack/sheet/cloth = 2)
+	tools = list(TOOL_WORKBENCH)
+	time = 15
+	category = CAT_CLOTHING
+	subcategory = CAT_BELTS
+
+/datum/crafting_recipe/shotgunbandolier
+	name = "shotgun bandolier"
+	result = /obj/item/storage/belt/bandolier/shotgun
+	reqs = list(/obj/item/stack/sheet/hay = 2,
+				/obj/item/stack/sheet/cloth = 2,
+				/obj/item/storage/belt = 1)
 	tools = list(TOOL_WORKBENCH)
 	time = 15
 	category = CAT_CLOTHING

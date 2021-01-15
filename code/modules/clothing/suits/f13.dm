@@ -98,6 +98,17 @@
 	armor = list(melee = 20, bullet = 20, laser = 0, energy = 0, bomb = 20, bio = 0, rad = 0, fire = 0, acid = 0)
 	allowed = list(/obj/item/pen,/obj/item/paper,/obj/item/stamp,/obj/item/reagent_containers/food/drinks/flask,/obj/item/storage/box/matches,/obj/item/lighter,/obj/item/clothing/mask/cigarette,/obj/item/storage/fancy/cigarettes,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing)
 
+
+/obj/item/clothing/suit/f13/jamrock
+	name = "disco-ass blazer"
+	desc = "Looks like someone skinned this blazer off some long extinct disco-animal. It has an enigmatic white rectangle on the back and the right sleeve."
+	icon_state = "jamrock_blazer"
+	item_state = "jamrock_blazer"
+	body_parts_covered = CHEST|LEGS|FEET|ARMS
+	armor = list(melee = 20, bullet = 20, laser = 0, energy = 0, bomb = 20, bio = 0, rad = 0, fire = 0, acid = 0)
+	allowed = list(/obj/item/pen,/obj/item/paper,/obj/item/stamp,/obj/item/reagent_containers/food/drinks/flask,/obj/item/storage/box/matches,/obj/item/lighter,/obj/item/clothing/mask/cigarette,/obj/item/storage/fancy/cigarettes,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing)
+
+
 /obj/item/clothing/suit/f13/sheriff
 	name = "sheriff duster"
 	desc = "A long brown leather overcoat.<br>A powerful accessory of a respectful sheriff, bringer of justice."
@@ -132,6 +143,71 @@
 	item_state = "wcoat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	allowed = list(/obj/item/pen,/obj/item/paper,/obj/item/stamp,/obj/item/reagent_containers/food/drinks/flask,/obj/item/melee,/obj/item/storage/box/matches,/obj/item/lighter,/obj/item/clothing/mask/cigarette,/obj/item/storage/fancy/cigarettes,/obj/item/flashlight,/obj/item/weapon,/obj/item/storage/pill_bottle/dice,/obj/item/dice)
+
+/obj/item/clothing/suit/f13/hubologist/bro
+	name = "hubologist robe"
+	desc = "A brown robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_bro"
+
+/obj/item/clothing/suit/f13/hubologist/gry
+	name = "hubologist robe"
+	desc = "A gray robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_gry"
+
+/obj/item/clothing/suit/f13/hubologist/whi
+	name = "hubologist robe"
+	desc = "A white robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_whi"
+
+/obj/item/clothing/suit/f13/hubologist/bbl
+	name = "hubologist robe"
+	desc = "A light-blue robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_bbl"
+
+/obj/item/clothing/suit/f13/hubologist/blu
+	name = "hubologist robe"
+	desc = "A blue robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_blu"
+
+/obj/item/clothing/suit/f13/hubologist/red
+	name = "hubologist robe"
+	desc = "A red robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_red"
+
+/obj/item/clothing/suit/f13/hubologist/ora
+	name = "hubologist robe"
+	desc = "An orange robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_ora"
+
+/obj/item/clothing/suit/f13/hubologist/yel
+	name = "hubologist robe"
+	desc = "An yellow robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_yel"
+
+/obj/item/clothing/suit/f13/hubologist/pur
+	name = "hubologist robe"
+	desc = "A purple robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_pur"
+
+/obj/item/clothing/suit/f13/hubologist/pin
+	name = "hubologist robe"
+	desc = "A pink robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_pin"
+
+/obj/item/clothing/suit/f13/hubologist/grn
+	name = "hubologist robe"
+	desc = "A green robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_grn"
+
+/obj/item/clothing/suit/f13/hubologist/all
+	name = "hubologist robe"
+	desc = "A colorful robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_all"
+
+/obj/item/clothing/suit/f13/hubologist/gay
+	name = "habulogayist robe"
+	desc = "A gayish erp robe worn by Adepts of Hubology Studies.<br>Beware - the spirits of the dead are all around us!"
+	icon_state = "hubologist_gay"
 
 /obj/item/clothing/suit/f13/sexymaid
 	name = "sexy maid outfit"
@@ -179,6 +255,21 @@
 	desc = "My star, my perfect silence."
 	icon = 'icons/fallout/clothing/hats.dmi'
 	icon_state = "hazmat"
+	item_state = "hazmat_helmet"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+
+/obj/item/clothing/suit/bio_suit/f13/hazmat_enclave
+	name = "hazmat suit"
+	desc = "Yellow Level A , hazmat protective suit.<br>You can see some numbers on the tag: 35 56."
+	icon = 'icons/fallout/clothing/suits.dmi'
+	icon_state = "hazmat_enclave"
+	item_state = "hazmat_suit"
+
+/obj/item/clothing/head/bio_hood/f13/hazmat_enclave
+	name = "hazmat hood"
+	desc = "My star, my perfect silence."
+	icon = 'icons/fallout/clothing/hats.dmi'
+	icon_state = "enclave_hazmat"
 	item_state = "hazmat_helmet"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 
@@ -391,3 +482,103 @@
 	armor = list("melee" = 60, "bullet" = 50, "laser" = 40, "energy" = 20, "bomb" = 50, "bio" = 30, "rad" = 20, "fire" = 60, "acid" = 0)
 	heat_protection = HEAD
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/suit/f13/nwcoat
+	name = "Red winter coat"
+	desc = "Warm and cool winter coat."
+	icon = 'icons/fallout/clothing/suits.dmi'
+	icon_state = "nw_coat_red"
+	body_parts_covered = FULL_BODY
+	armor = list(melee = 20, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 60, acid = 20)
+
+/obj/item/clothing/suit/f13/nwcoat/blue
+	name = "Blue winter coat"
+	icon_state = "nw_coat_blue"
+
+/obj/item/clothing/suit/f13/nwcoat/green
+	name = "Green winter coat"
+	icon_state = "nw_coat_green"
+
+/obj/item/clothing/suit/f13/nwcoat/gay
+	name = "Gayish winter coat"
+	desc = "Warm and comfort from ERP"
+	icon_state = "nw_coat_gay"
+
+/obj/item/clothing/suit/f13/nwcoat_old
+	name = "Old red winter coat"
+	desc = "Old and dirty winter coat."
+	icon = 'icons/fallout/clothing/suits.dmi'
+	icon_state = "nw_coat_red_old"
+	body_parts_covered = FULL_BODY
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 30, acid = 10)
+
+/obj/item/clothing/suit/f13/nwcoat_old/blue
+	name = "Old blue winter coat"
+	icon_state = "nw_coat_blue_old"
+
+/obj/item/clothing/suit/f13/nwcoat_old/green
+	name = "Old green winter coat"
+	icon_state = "nw_coat_green_old"
+
+/obj/item/clothing/suit/f13/nwcoat_old/gay
+	name = "Old gayish winter coat"
+	icon_state = "nw_coat_gay_old"
+
+/obj/item/clothing/suit/f13/nwcoat_old/bomj
+	name = "Old bomj's winter coat"
+	icon_state = "nw_coat_bomj"
+
+/obj/item/clothing/suit/f13/nwcoat_arm
+	name = "Armored red winter coat"
+	desc = "Armored, warm and cool winter coat."
+	icon = 'icons/fallout/clothing/suits.dmi'
+	icon_state = "nw_coat_red_arm"
+	body_parts_covered = FULL_BODY
+	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 30, rad = 30, fire = 60, acid = 30)
+
+/obj/item/clothing/suit/f13/nwcoat_arm/blue
+	name = "Armored blue winter coat"
+	icon_state = "nw_coat_blue_arm"
+
+/obj/item/clothing/suit/f13/nwcoat_arm/green
+	name = "Armored green winter coat"
+	icon_state = "nw_coat_green_arm"
+
+/obj/item/clothing/suit/f13/nwcoat_arm/gay
+	name = "Armored gay winter coat"
+	icon_state = "nw_coat_gay_arm"
+
+/obj/item/clothing/suit/f13/nwcoat_arm/bomj
+	name = "Armored bomj's winter coat"
+	icon_state = "nw_coat_bomj_arm"
+
+/obj/item/clothing/suit/f13/nw_anarchist
+	name = "Anarchist coat"
+	desc = "Anarchy - mother of discipline!"
+	icon = 'icons/fallout/clothing/suits.dmi'
+	icon_state = "nw_anarchist"
+	body_parts_covered = FULL_BODY
+	armor = list(melee = 20, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 30, acid = 20)
+
+/obj/item/clothing/suit/f13/nw_anarchist_thirty
+	name = "Armored anarchist coat"
+	desc = "Anarchy, but better!"
+	icon = 'icons/fallout/clothing/suits.dmi'
+	icon_state = "nw_anarchist13"
+	body_parts_covered = FULL_BODY
+	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 30, rad = 30, fire = 30, acid = 30)
+
+/obj/item/clothing/suit/f13/stas
+	name = "Stas jacket"
+	desc = "Wide original."
+	icon = 'icons/fallout/clothing/suits.dmi'
+	icon_state = "stas"
+	body_parts_covered = FULL_BODY
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 50, rad = 50, fire = 50, acid = 50)
+
+/obj/item/clothing/suit/f13/snow_coat
+	name = "Lucky Cowboy Coat"
+	desc = "Full of luck"
+	icon_state = "snow_coat"
+	body_parts_covered = FULL_BODY
+	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 30, rad = 30, fire = 60, acid = 30)

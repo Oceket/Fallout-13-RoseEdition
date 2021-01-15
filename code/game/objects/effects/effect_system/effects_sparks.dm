@@ -20,7 +20,9 @@
 	name = "sparks"
 	icon_state = "sparks"
 	anchored = TRUE
-	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.5
 
 /obj/effect/particle_effect/sparks/Initialize()
 	. = ..()

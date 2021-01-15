@@ -16,6 +16,14 @@
 	max_integrity = 200
 	integrity_failure = 50
 
+/obj/structure/closet/bus/snow_act()
+	snow = TRUE
+	icon_state = "[initial(icon_state)]_snow"
+
+/obj/structure/closet/bus/heat_act()
+	snow = FALSE
+	icon_state = initial(icon_state)
+
 /obj/structure/closet/bus/New()
 	..()
 	var/atom/movable/S = new (locate(x-3,y,z))

@@ -39,6 +39,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
+		playsound(src.loc, 'sound/items/matchstick_lit.ogg', 100, 1)
 		lit = TRUE
 		icon_state = "match_lit"
 		damtype = "fire"
@@ -138,7 +139,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/clothing/mask/cigarette/attackby(obj/item/W, mob/user, params)
 	if(!lit && smoketime > 0)
 		var/lighting_text = W.ignition_effect(src, user)
-		if(lighting_text)
+		if(lighting_text || lighting_text == "")
 			light(lighting_text)
 	else
 		return ..()
@@ -165,6 +166,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		item_state = icon_on
 		return
 
+	playsound(src, "sound/items/cig_light.ogg", 75, 1, -1)
 	lit = TRUE
 	name = "lit [name]"
 	attack_verb = list("burnt", "singed")
@@ -224,6 +226,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		new type_butt(location)
 		if(ismob(loc))
 			to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
+			playsound(src, 'sound/items/cig_snuff.ogg', 25, 1)
 		qdel(src)
 		return
 	open_flame()
@@ -233,6 +236,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
 		user.visible_message("<span class='notice'>[user] calmly drops and treads on \the [src], putting it out instantly.</span>")
+		playsound(src, 'sound/items/cig_snuff.ogg', 25, 1)
 		new type_butt(user.loc)
 		new /obj/effect/decal/cleanable/ash(user.loc)
 		qdel(src)
@@ -527,7 +531,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		)
 	heat = 1500
 	resistance_flags = FIRE_PROOF
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.6
 	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
 	grind_results = list("iron" = 1, "welding_fuel" = 5, "oil" = 5)
 
 /obj/item/lighter/Initialize()
@@ -553,23 +561,25 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/lighter/ignition_effect(atom/A, mob/user)
 	if(is_hot())
-		. = "<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [A] with [src]. Damn [user.p_theyre()] cool.</span>"
+		//  . = "<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [A] with [src]. Damn [user.p_theyre()] cool.</span>"
+		. = ""
 
 /obj/item/lighter/proc/set_lit(new_lit)
+	if(lit == new_lit)
+		return
 	lit = new_lit
 	if(lit)
 		force = 5
 		damtype = "fire"
 		hitsound = 'sound/items/welder.ogg'
 		attack_verb = list("burnt", "singed")
-		set_light(1)
 		START_PROCESSING(SSobj, src)
 	else
 		hitsound = "swing_hit"
 		force = 0
 		attack_verb = null //human_defense.dm takes care of it
-		set_light(0)
 		STOP_PROCESSING(SSobj, src)
+	set_light_on(lit)
 	update_icon()
 
 /obj/item/lighter/attack_self(mob/living/user)
@@ -577,7 +587,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		if(!lit)
 			set_lit(TRUE)
 			if(fancy)
-				user.visible_message("Without even breaking stride, [user] flips open and lights [src] in one smooth movement.", "<span class='notice'>Without even breaking stride, you flip open and light [src] in one smooth movement.</span>")
+				playsound(src, "sound/items/zippo_on.ogg", 100, 1)
+				// user.visible_message("Without even breaking stride, [user] flips open and lights [src] in one smooth movement.", "<span class='notice'>Without even breaking stride, you flip open and light [src] in one smooth movement.</span>")
 			else
 				var/prot = FALSE
 				var/mob/living/carbon/human/H = user
@@ -590,19 +601,22 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					prot = TRUE
 
 				if(prot || prob(75))
-					user.visible_message("After a few attempts, [user] manages to light [src].", "<span class='notice'>After a few attempts, you manage to light [src].</span>")
+					// user.visible_message("After a few attempts, [user] manages to light [src].", "<span class='notice'>After a few attempts, you manage to light [src].</span>")
 				else
 					var/hitzone = user.held_index_to_dir(user.active_hand_index) == "r" ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND
 					user.apply_damage(5, BURN, hitzone)
-					user.visible_message("<span class='warning'>After a few attempts, [user] manages to light [src] - however, [user.p_they()] burn [user.p_their()] finger in the process.</span>", "<span class='warning'>You burn yourself while lighting the lighter!</span>")
+					// user.visible_message("<span class='warning'>After a few attempts, [user] manages to light [src] - however, [user.p_they()] burn [user.p_their()] finger in the process.</span>", "<span class='warning'>You burn yourself while lighting the lighter!</span>")
 					SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "burnt_thumb", /datum/mood_event/burnt_thumb)
+				playsound(src, "sound/items/lighter_on.ogg", 100, 1)
 
 		else
 			set_lit(FALSE)
 			if(fancy)
-				user.visible_message("You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.", "<span class='notice'>You quietly shut off [src] without even looking at what you're doing. Wow.</span>")
+				playsound(src, "sound/items/zippo_off.ogg", 100, 1)
+				// user.visible_message("You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.", "<span class='notice'>You quietly shut off [src] without even looking at what you're doing. Wow.</span>")
 			else
-				user.visible_message("[user] quietly shuts off [src].", "<span class='notice'>You quietly shut off [src].</span>")
+				playsound(src, "sound/items/lighter_off.ogg", 100, 1)
+				// user.visible_message("[user] quietly shuts off [src].", "<span class='notice'>You quietly shut off [src].</span>")
 	else
 		. = ..()
 
@@ -677,7 +691,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/lighter/greyscale/ignition_effect(atom/A, mob/user)
 	if(is_hot())
-		. = "<span class='notice'>After some fiddling, [user] manages to light [A] with [src].</span>"
+		// . = "<span class='notice'>After some fiddling, [user] manages to light [A] with [src].</span>"
+		. = ""
 
 
 /obj/item/lighter/slime

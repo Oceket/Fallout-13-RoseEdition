@@ -18,6 +18,14 @@
 
 	pixel_x = -32
 
+/obj/structure/lamp_post/snow_act()
+	snow = TRUE
+	icon_state = "[initial(icon_state)]_snow"
+
+/obj/structure/lamp_post/heat_act()
+	snow = FALSE
+	icon_state = initial(icon_state)
+
 /obj/structure/lamp_post/doubles
 	icon_state = "nvlamp-straight-doubles"
 

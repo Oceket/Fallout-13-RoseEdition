@@ -309,7 +309,9 @@
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
+	light_system = MOVABLE_LIGHT
 	light_range = 7
+	light_flags = LIGHT_ATTACHED
 	layer = ABOVE_ALL_MOB_LAYER
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -611,7 +613,7 @@
 
 /obj/item/melee/transforming/cleaving_saw
 	name = "cleaving saw"
-	desc = "This saw is the tool of choice for the Head Hunter. Capable of switching its reach and attack speed on the fly, it's an incredibly useful weapon for slaying the denizens of the wastes. Animal or human, the saw doesn't judge."
+	desc = "This saw is the tool of choice for the Chief Hunter. Capable of switching its reach and attack speed on the fly, it's an incredibly useful weapon for slaying the denizens of the wastes. Animal or human, the saw doesn't judge."
 	force = 30
 	force_on = 40 //force when active
 	throwforce = 20

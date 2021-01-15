@@ -19,6 +19,11 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_bodypart_type = 0
 
+/datum/surgery/advanced/reconstruction/can_start(mob/living/carbon/user, mob/living/carbon/target)
+	if(!..() && !user.has_trait(TRAIT_MEDICALEXPERT))
+		return FALSE
+	return TRUE
+
 /datum/surgery_step/reconstruct
 	name = "repair body"
 	implements = list(/obj/item/hemostat = 100, TOOL_SCREWDRIVER = 35, /obj/item/pen = 15)
@@ -31,6 +36,7 @@
 /datum/surgery_step/reconstruct/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] fixes some of [target]'s wounds.", "<span class='notice'>You succeed in fixing some of [target]'s wounds.</span>")
 	target.heal_bodypart_damage(10,10)
+	target.adjustCloneLoss(-10)
 	return TRUE
 
 /datum/surgery_step/reconstruct/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

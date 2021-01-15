@@ -105,6 +105,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/cmd_admin_local_narrate,	/*sends text to all mobs within view of atom*/
 	/client/proc/toggle_AI_interact, /*toggle admin ability to interact with machines as an AI*/
+	/client/proc/SetTimeOfDay,
 	/client/proc/admin_away
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
@@ -177,6 +178,10 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_display_init_log,
 	/client/proc/cmd_display_overlay_log,
 	/datum/admins/proc/create_or_modify_area,
+#ifdef REFERENCE_TRACKING
+	/datum/admins/proc/view_refs,
+	/datum/admins/proc/view_del_failures,
+#endif	
 	)
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))
 GLOBAL_PROTECT(admin_verbs_possess)
@@ -805,23 +810,28 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Set Time of Day"
 	set category = "Fun"
 
-	var/daytime = input(usr, "Choose time of day to set)", "FALLOUT") as null|anything in list("Morning", "Day", "Evening", "Night")
+	var/daytime = input(usr, "Choose time of day to set", "FALLOUT") as null|anything in list("Sunrise", "Morning", "Day", "Afternoon", "Sunset", "Night")
 
 	if(!daytime)
 		return
 
-	switch(daytime)
-		if("Morning")
-			daytime = 1//"MORNING"
-		if("Day")
-			daytime = 2//"DAYTIME"
-		if("Evening")
-			daytime = 3//"AFTERNOON"
-		if("Night")
-			daytime = 4//"NIGHTTIME"
-
-	//SSnightcycle.updateLight(daytime)
-	set_time_of_day(daytime)
-	to_chat(usr, "<span class='interface'>Time of day successfully updated.</span>")
 	log_admin("[key_name(usr)] changed time of day to [daytime].")
 	message_admins("[key_name_admin(usr)] changed time of day to [daytime].")
+
+	switch(daytime)
+		if("Sunrise")
+			daytime = STEP_SUNRISE
+		if("Morning")
+			daytime = STEP_MORNING
+		if("Day")
+			daytime = STEP_DAY
+		if("Afternoon")
+			daytime = STEP_AFTERNOON
+		if("Sunset")
+			daytime = STEP_SUNSET
+		if("Night")
+			daytime = STEP_NIGHT
+
+	SSnightcycle.setTime(daytime)
+	to_chat(usr, "<span class='interface'>Time of day successfully updated.</span>")
+	

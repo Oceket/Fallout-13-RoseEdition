@@ -102,6 +102,16 @@
 	anchored = TRUE
 	density = TRUE
 
+
+/obj/structure/holohoop/snow_act()
+	snow = TRUE
+	icon_state = "hoop_snow"
+
+/obj/structure/holohoop/heat_act()
+	snow = FALSE
+	icon_state = initial(icon_state)
+
+
 /obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(get_dist(src,user)<2)
 		if(user.transferItemToLoc(W, drop_location()))

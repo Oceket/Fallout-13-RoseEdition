@@ -53,7 +53,7 @@ Overseer
 /datum/outfit/job/vault/f13overseer
 	name = "Overseer"
 	jobtype = /datum/job/vault/f13overseer
-	chemwhiz = TRUE
+	// chemwhiz = TRUE
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -63,8 +63,8 @@ Overseer
 	glasses = 		/obj/item/clothing/glasses/sunglasses
 	ears = 			/obj/item/radio/headset/headset_overseer
 	neck = 			/obj/item/clothing/neck/cloak/overseer
-	backpack = /obj/item/storage/backpack/satchel/leather
-	backpack_contents = list(/obj/item/storage/box/ids = 1, /obj/item/melee/oldstyle = 1, /obj/item/gun/ballistic/automatic/pistol/n99/executive = 1, /obj/item/ammo_box/magazine/m10mm_adv = 3)
+	backpack = 		/obj/item/storage/backpack/satchel/leather
+	backpack_contents = list(/obj/item/storage/box/ids = 1, /obj/item/melee/oldstyle = 1, /obj/item/gun/ballistic/automatic/pistol/n99/executive = 1, /obj/item/ammo_box/magazine/m10mm_adv = 3, /obj/item/crowbar = 1)
 
 ///datum/outfit/f13overseer/post_equip(mob/living/carbon/human/H)
 	//..()
@@ -123,7 +123,7 @@ Head of Security
 	satchel = 		/obj/item/storage/backpack/satchel/sec
 	duffelbag = 	/obj/item/storage/backpack/duffelbag/sec
 	box = 			/obj/item/storage/box/security
-	backpack_contents = list(/obj/item/melee/classic_baton/telescopic = 1, /obj/item/restraints/handcuffs = 2, /obj/item/ammo_box/l10mm = 2)
+	backpack_contents = list(/obj/item/melee/classic_baton/telescopic = 1, /obj/item/restraints/handcuffs = 2, /obj/item/ammo_box/l10mm = 2, /obj/item/crowbar = 1)
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -164,7 +164,8 @@ Medical Doctor
 	satchel = 		/obj/item/storage/backpack/satchel/med
 	duffelbag = 	/obj/item/storage/backpack/duffelbag/med
 	backpack_contents = list(
-		/obj/item/reagent_containers/dropper/SR/Vault =1
+		/obj/item/reagent_containers/dropper/SR/Vault =1,
+		/obj/item/crowbar = 1,
 		)
 
 /datum/outfit/job/vault/f13doctor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -195,8 +196,8 @@ Scientist
 	access = list(ACCESS_ROBOTICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE, ACCESS_CARGO)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
 
-/datum/job/vault/f13vaultscientist/after_spawn(mob/living/carbon/human/H, mob/M)
-	H.add_quirk("Master Gunsmith")
+// /datum/job/vault/f13vaultscientist/after_spawn(mob/living/carbon/human/H, mob/M)
+// 	H.add_quirk("Master Gunsmith")
 
 /datum/outfit/job/vault/f13vaultscientist
 	name = "Scientist"
@@ -210,6 +211,7 @@ Scientist
 	suit =			/obj/item/clothing/suit/toggle/labcoat
 	backpack = 		/obj/item/storage/backpack/science
 	satchel = 		/obj/item/storage/backpack/satchel/tox
+	backpack_contents = list(/obj/item/crowbar = 1)
 
 /*
 Security Officer
@@ -335,7 +337,7 @@ Security Officer
 	satchel = 		/obj/item/storage/backpack/satchel/sec
 	duffelbag = 	/obj/item/storage/backpack/duffelbag/sec
 	box = 			/obj/item/storage/box/security
-	backpack_contents = list(/obj/item/melee/classic_baton/telescopic = 1, /obj/item/restraints/handcuffs = 1, /obj/item/ammo_box/magazine/m10mm_adv = 2)
+	backpack_contents = list(/obj/item/melee/classic_baton/telescopic = 1, /obj/item/restraints/handcuffs = 1, /obj/item/ammo_box/magazine/m10mm_adv = 2, /obj/item/crowbar = 1)
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -400,6 +402,7 @@ Vault Engineer
 	satchel = 		/obj/item/storage/backpack/satchel/eng
 	duffelbag = 	/obj/item/storage/backpack/duffelbag/engineering
 	box = 			/obj/item/storage/box/engineer
+	backpack_contents = list(/obj/item/crowbar = 1)
 
 /datum/job/vault/f13vaultDweller
 	title = "Vault Dweller"
@@ -427,6 +430,8 @@ Vault Engineer
 /datum/outfit/job/vault/f13vaultDweller
 	name = "Vault Dweller"
 	jobtype = /datum/job/vault/f13vaultDweller
+	backpack = 		/obj/item/storage/backpack/satchel/leather
+	backpack_contents = list(/obj/item/crowbar = 1)
 
 /datum/outfit/job/vault/f13vaultDweller/pre_equip(mob/living/carbon/human/H)
 	..()

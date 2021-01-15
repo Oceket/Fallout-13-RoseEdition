@@ -70,8 +70,8 @@ Will print: "/mob/living/carbon/human/death" (you can optionally embed it in a s
 #define BELT_LAYER				12		//Possible make this an overlay of somethign required to wear a belt?
 #define SUIT_STORE_LAYER		11
 #define NECK_LAYER				10
-#define BACK_LAYER				9
-#define HAIR_LAYER				8		//TODO: make part of head layer?
+#define BACK_LAYER				8
+#define HAIR_LAYER				9		//TODO: make part of head layer?
 #define FACEMASK_LAYER			7
 #define HEAD_LAYER				6
 #define HANDCUFF_LAYER			5
@@ -169,6 +169,8 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 #define BLOOD_STATE_XENO			"xeno"
 #define BLOOD_STATE_OIL				"oil"
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
+
+#define SNOW_STATE_GENERIC			"snow"
 
 //suit sensors: sensor_mode defines
 

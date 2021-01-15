@@ -32,13 +32,13 @@ Commander
 	minimal_access = list(ACCESS_ENCLAVE)
 
 	exp_requirements = 5500
-	exp_type = EXP_TYPE_ENCLAVE
+	exp_type = EXP_TYPE_NCR
 
 /datum/outfit/job/enclave/f13uscommander
 	name = "US Commander"
 	jobtype = /datum/job/enclave/f13uscommander
 
-	id = /obj/item/card/id/dogtag
+	id = /obj/item/card/id/dogtag/enclave
 	uniform =  /obj/item/clothing/under/f13/enclave_officer
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
@@ -69,7 +69,7 @@ Medic
 	minimal_access = list(ACCESS_ENCLAVE)
 
 	exp_requirements = 2500
-	exp_type = EXP_TYPE_ENCLAVE
+	exp_type = EXP_TYPE_NCR
 
 	loadout_options = list(
 	/datum/outfit/loadout/enclave_medic_1,
@@ -80,7 +80,7 @@ Medic
 /datum/outfit/job/enclave/f13usmedic
 	name = "US Medic"
 	jobtype = /datum/job/enclave/f13usmedic
-	id = /obj/item/card/id/dogtag
+	id = /obj/item/card/id/dogtag/enclave
 	uniform =  /obj/item/clothing/under/f13/enclave_officer
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
@@ -106,7 +106,11 @@ Medic
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	back = /obj/item/storage/backpack/duffelbag/med/surgery
 	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1, /obj/item/stock_parts/cell/ammo/ec = 2, /obj/item/clothing/mask/surgical = 1)
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/clothing/mask/surgical = 1,
+		/obj/item/book/granter/trait/field_surgery = 1,
+		  )
 
 /datum/outfit/loadout/enclave_medic_3
 	name = "Enclave Chemist"
@@ -116,11 +120,32 @@ Medic
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	back = /obj/item/storage/backpack/satchel/med
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ec = 2, /obj/item/book/granter/trait/chemistry = 1, /obj/item/storage/box/beakers = 1)
+		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/book/granter/trait/chemistry = 1,
+		/obj/item/storage/box/beakers = 1
+		)
 
 /*
 HEAVY!
 */
+
+
+/datum/outfit/loadout/enclave_heavy_1
+	name = "Tesla Heavy"
+	suit_store = /obj/item/gun/energy/laser/plasma
+	suit = /obj/item/clothing/suit/armor/f13/power_armor/tesla
+	head =  /obj/item/clothing/head/helmet/f13/power_armor/tesla
+	backpack_contents = list(
+			/obj/item/stock_parts/cell/ammo/mfc = 3
+		)
+
+/datum/outfit/loadout/enclave_heavy_2
+	name = "Ballistic Heavy"
+	suit = /obj/item/clothing/suit/armor/f13/power_armor/advanced
+	head = /obj/item/clothing/head/helmet/f13/power_armor/advanced
+	back = /obj/item/minigunpackbal
+
+
 /datum/job/enclave/f13usheavy
 	title = "US Heavy Soldier"
 	flag = F13USPRIVATE
@@ -137,21 +162,22 @@ HEAVY!
 	minimal_access = list(ACCESS_ENCLAVE)
 
 	exp_requirements = 4500
-	exp_type = EXP_TYPE_ENCLAVE
+	exp_type = EXP_TYPE_NCR
+
+	loadout_options = list(
+		/datum/outfit/loadout/enclave_heavy_1,
+		/datum/outfit/loadout/enclave_heavy_2
+	)
 
 /datum/outfit/job/enclave/f13usheavy
 	name = "US Heavy"
 	jobtype = /datum/job/enclave/f13usheavy
-	id = /obj/item/card/id/dogtag
+	id = /obj/item/card/id/dogtag/enclave
 	uniform =  /obj/item/clothing/under/f13/bdu
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_enclave
-	head = /obj/item/clothing/head/helmet/f13/power_armor/advanced
-	suit = /obj/item/clothing/suit/armor/f13/power_armor/advanced
 	belt = /obj/item/storage/belt/military
-	backpack_contents = list(
-		/obj/item/minigunpack = 1)
 	pa_wear = TRUE
 
 /*
@@ -173,7 +199,7 @@ Private
 	minimal_access = list(ACCESS_ENCLAVE)
 
 	exp_requirements = 3500
-	exp_type = EXP_TYPE_ENCLAVE
+	exp_type = EXP_TYPE_NCR
 
 	loadout_options = list(
 	/datum/outfit/loadout/enclave_soldier_1,
@@ -183,7 +209,7 @@ Private
 
 /datum/outfit/loadout/enclave_soldier_1
 	name = "Enclave Plasma soldier"
-	uniform = /obj/item/clothing/under/color/black
+	uniform = /obj/item/clothing/under/f13/dbdu
 	suit_store = /obj/item/gun/energy/laser/plasma
 	accessory = /obj/item/clothing/accessory/enclave/sergeant
 	backpack_contents = list(
@@ -191,7 +217,7 @@ Private
 
 /datum/outfit/loadout/enclave_soldier_2
 	name = "Enclave Ballistic soldier"
-	uniform = /obj/item/clothing/under/color/black
+	uniform = /obj/item/clothing/under/f13/dbdu
 	suit_store = /obj/item/gun/ballistic/automatic/assault_carbine
 	accessory = /obj/item/clothing/accessory/enclave/private
 	backpack_contents = list(
@@ -201,14 +227,14 @@ Private
 	name = "Enclave Spy"
 	accessory = /obj/item/clothing/accessory/enclave/sergeant
 	r_pocket = /obj/item/encryptionkey/syndicate
-	belt = /obj/item/gun/ballistic/automatic/pistol/suppressed
+	belt = /obj/item/stealthboy
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m10mm = 2, /obj/item/storage/box/syndie_kit/chameleon = 1, /obj/item/storage/box/syndie_kit/imp_microbomb = 1, /obj/item/jammer = 1, /obj/item/card/id/syndicate/anyone = 1)
+		/obj/item/storage/box/syndie_kit/chameleon = 1, /obj/item/storage/box/syndie_kit/imp_microbomb = 1, /obj/item/jammer = 1, /obj/item/card/id/syndicate/anyone = 1, /obj/item/melee/baton/enclave = 1)
 
 /datum/outfit/job/enclave/f13usprivate
 	name = "US Private"
 	jobtype = /datum/job/enclave/f13usprivate
-	id = /obj/item/card/id/dogtag
+	id = /obj/item/card/id/dogtag/enclave
 	uniform =  /obj/item/clothing/under/f13/dbdu
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
@@ -236,8 +262,8 @@ Scientist
 	access = list(ACCESS_ENCLAVE)
 	minimal_access = list(ACCESS_ENCLAVE)
 
-	exp_requirements = 500
-	exp_type = EXP_TYPE_ENCLAVE
+	exp_requirements = 600
+	exp_type = EXP_TYPE_NCR
 
 /datum/outfit/job/enclave/f13usscientist
 	name = "US Scientist"
@@ -245,13 +271,13 @@ Scientist
 
 	chemwhiz = TRUE
 
-	id = /obj/item/card/id/dogtag
+	id = /obj/item/card/id/dogtag/enclave
 	uniform =  /obj/item/clothing/under/f13/dbdu
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_enclave
-	head = /obj/item/clothing/head/bio_hood/f13/hazmat
-	suit = /obj/item/clothing/suit/bio_suit/f13/hazmat
+	head = /obj/item/clothing/head/bio_hood/f13/hazmat_enclave
+	suit = /obj/item/clothing/suit/bio_suit/f13/hazmat_enclave
 	belt = /obj/item/storage/belt/utility/full/engi
 
 /*
@@ -285,7 +311,7 @@ Engineer
 	name = "US Engineer"
 	jobtype = /datum/job/enclave/f13usengineer
 
-	id = /obj/item/card/id/dogtag
+	id = /obj/item/card/id/dogtag/enclave
 	uniform =  /obj/item/clothing/under/f13/petrochico
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
@@ -300,8 +326,13 @@ Engineer
 	name = "Enclave Combat Engineer"
 	suit_store = /obj/item/gun/energy/laser/plasma/pistol
 	accessory = /obj/item/clothing/accessory/enclave/sergeant
+	head = /obj/item/clothing/head/welding/weldingjapan
+	glasses = /obj/item/clothing/glasses/night
+	suit = /obj/item/clothing/suit/armor/f13/combat/enclave
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/mfc = 3)
+		/obj/item/construction/rcd/combat = 1,
+		/obj/item/rcd_ammo/large = 2,
+		/obj/item/stock_parts/cell/ammo/ec = 3)
 
 /datum/outfit/loadout/enclave_eng_2
 	name = "Enclave Flamethrower"
@@ -314,10 +345,13 @@ Engineer
 
 /datum/outfit/loadout/enclave_eng_3
 	name = "Enclave Pilot"
-	head = /obj/item/clothing/head/helmet/f13/combat/enclave
+	head = /obj/item/clothing/head/soft/f13/enclave
 	suit_store = /obj/item/gun/energy/laser/plasma/pistol
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ec = 2, /obj/item/key/vertibird = 1)
+		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/key/vertibird = 1,
+		/obj/item/flashlight/flare/emergency = 3
+		)
 
 /*
 /*

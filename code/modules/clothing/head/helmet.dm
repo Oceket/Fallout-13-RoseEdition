@@ -377,6 +377,16 @@
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
+/obj/item/clothing/head/helmet/f13/raider/ant
+	name = "AntAgonizer's cowl"
+	desc = "A handmade cowl made from the chitin of oversized ants. Seriously looks like something out of a comic book. Could probably be reinforced, if you're so inclined."
+	icon_state = "anthelm"
+	item_state = "anthelm"
+
+/obj/item/clothing/head/helmet/f13/raider/ant/Initialize()
+	. = ..()
+	AddComponent(/datum/component/armor_plate)
+
 /*
 /obj/item/clothing/head/helmet/f13/raider/r
 	name = "reinforced base raider helmet"
@@ -454,6 +464,27 @@
 	item_state = "brotherhood_helmet"
 	armor = list("melee" = 40, "bullet" = 45, "laser" = 40, "energy" = 45, "bomb" = 55, "bio" = 60, "rad" = 15, "fire" = 60, "acid" = 30)
 
+/obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
+	name = "brotherhood senior knight combat helmet"
+	desc = "An improved combat helmet, bearing the symbol of the Knights in silver."
+	icon_state = "brotherhood_helmet_senior"
+	item_state = "brotherhood_helmet_senior"
+
+/obj/item/clothing/head/helmet/f13/combat/environmental
+	name = "environmental armor helmet"
+	desc = "A full head helmet and gas mask, developed for use in heavily contaminated environments."
+	icon_state = "env_helmet"
+	item_state = "env_helmet"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEFACE|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
+	armor = list("melee" = 40, "bullet" = 45, "laser" = 40, "energy" = 45, "bomb" = 55, "bio" = 70, "rad" = 100, "fire" = 60, "acid" = 50)
+	strip_delay = 60
+	equip_delay_other = 60
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+/obj/item/clothing/head/helmet/f13/combat/environmental/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/rad_insulation, RAD_NO_INSULATION, TRUE, FALSE)
+
 /obj/item/clothing/head/helmet/f13/atomzealot
 	name = "zealot helm"
 	desc = "The helmet of an agent of the Division."
@@ -490,6 +521,13 @@
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 70, "bio" = 70, "rad" = 70, "fire" = 65, "acid" = 30)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 
+/obj/item/clothing/head/helmet/f13/jasonmask
+	name = "jasons mask"
+	desc = "A metal mask made specifically for jason."
+	icon_state = "jasonmask"
+	item_state = "jasonmask"
+	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 70, "bio" = 70, "rad" = 70, "fire" = 65, "acid" = 30)
+
 /obj/item/clothing/head/helmet/f13/brahmincowboyhat
 	name = "brahmin leather cowboy hat"
 	desc = "A cowboy hat made from brahmin hides."
@@ -511,6 +549,12 @@
 	item_state = "raider_combat_helmet"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 35, "energy" = 35, "bomb" = 70, "bio" = 70, "rad" = 70, "fire" = 65, "acid" = 30)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+
+
+/obj/item/clothing/head/helmet/f13/raidercombathelmet/mk2
+	name = "reinforced raider combat helmet"
+	desc = "A combat helmet modified with high quality armor plating"
+	armor = list("melee" = 45, "bullet" = 50, "laser" = 45, "energy" = 40, "bomb" = 39, "bio" = 70, "rad" = 70, "fire" = 70, "acid" = 0)
 
 /obj/item/clothing/head/helmet/f13/combat/knightcap
 	name = "knight-captain combat helmet"
@@ -636,10 +680,16 @@
 
 /obj/item/clothing/head/helmet/f13/legion/vet/jonesarmorhelmet
 	name= "Galea Articuli"
-	desc = "A hand-forged helmet seemingly made for a veteran legionary, taking into account the general shape and similarity to the standard-issue helmet. Not only does it look sturdy as hell, it also looks absolutely beautiful to the average engraving enjoyer. The patterns of the engravings are elegant and they curve and twist around the helmet with the utmost grace as to not sully a helmet of such high quality. In place of the standard red stripe going down the middle of the helmet, there's a gold one instead. It shines beautifully in light, and hides the wearer well in darkness. Upon closer inspection, there's a small space carved out inside the helmet. It's not rough or makeshift, in fact, it looks like it was designed with that space in mind. As a result of not being solid metal, the area the space resides in is slightly thinner and provides less protection than a normal helmet. The space is similar in size to that of a fedora's, but without the capacity to store guns or other larger items due to the rigidity of the helmet. Don't worry, though. You can still tip it."
+	desc = "A hand-forged helmet seemingly made for a veteran legionary, taking into account the general shape and similarity to the standard-issue helmet. Not only does it look sturdy as hell, it also looks absolutely beautiful to the average engraving enjoyer. The patterns of the engravings are elegant, curving and twisting around the helmet with the utmost grace as to not sully a helmet of such high quality. In place of the standard red stripe going down the middle of the helmet, there's a gold one instead. It shines beautifully in light, and hides the wearer well in darkness. Upon closer inspection, there's a small space carved out inside the helmet. It's not rough or makeshift, in fact, it looks like it was designed with that space in mind. As a result of not being solid metal, the area the space resides in is slightly thinner and provides less protection than a normal helmet. The space is similar in size to that of a fedora's, but without the capacity to store guns or other large items due to the rigidity of the helmet. Don't worry, though. It's been loosened around the neck area, so you can still tip it."
 	icon_state = "jonesarmorhelmet"
 	item_state = "jonesarmorhelmet"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
+
+/obj/item/clothing/head/helmet/f13/legion/vet/jonesarmorhelmet/decan
+	name = "Galea Plumosus Articuli"
+	desc = "A hand-forged helmet seemingly made for a veteran legionary, taking into account the general shape and similarity to the standard-issue helmet. Not only does it look sturdy as hell, it also looks absolutely beautiful to the average engraving enjoyer. The patterns of the engravings are elegant, curving and twisting around the helmet with the utmost grace as to not sully a helmet of such high quality. In place of the standard red stripe going down the middle of the helmet, there's a gold one instead. It shines beautifully in light, and hides the wearer well in darkness. Upon closer inspection, there's a small space carved out inside the helmet. It's not rough or makeshift, in fact, it looks like it was designed with that space in mind. As a result of not being solid metal, the area the space resides in is slightly thinner and provides less protection than a normal helmet. The space is similar in size to that of a fedora's, but without the capacity to store guns or other large items due to the rigidity of the helmet. Don't worry, though. It's been loosened around the neck area, so you can still tip it. In addition, a large amount of feathers have been added to the helmet. They're not useful for much, except for both denoting the rank of a veteran decanus due to the differing feather colors, and serving to cover up the area of thin metal around the helmet's storage space."
+	icon_state = "jonesarmordecan"
+	item_state = "jonesarmordecan"
 
 /obj/item/clothing/head/helmet/f13/legion/heavy
 	name = "legion veteran decan helmet"
@@ -672,6 +722,12 @@
 	icon_state = "legvenator"
 	item_state = "legvenator"
 	armor = list("melee" = 60, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 25, "bio" = 50, "rad" = 20, "fire" = 70, "acid" = 0)
+
+/obj/item/clothing/head/helmet/f13/legion/venator/diohelmet
+	name = "stilio oculatus helmet"
+	desc = "The hollowed head of a deadly golden gecko carefully affixed over a reinforced legion helmet. Its ghastly appearance serves as an intimidating gesture to those who do not yet fear the Lizard King."
+	icon_state = "diohelmet"
+	item_state = "diohelmet"
 
 /obj/item/clothing/head/helmet/f13/legion/libritor
 	name = "legion libritor helmet"
@@ -786,28 +842,36 @@
 	dynamic_fhair_suffix = ""
 
 //Ranger Armors
-	/obj/item/clothing/head/helmet/f13/ncr/rangercombat
-		name = "ranger combat helmet"
-		desc = "An old combat helmet, out of use around the time of the war."
-		icon_state = "ranger"
-		item_state = "ranger"
-		armor = list("melee" = 60, "bullet" = 50, "laser" = 30, "energy" = 50, "bomb" = 39, "bio" = 60, "rad" = 60, "fire" = 90, "acid" = 0)
-		flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
-		flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-		resistance_flags = LAVA_PROOF | FIRE_PROOF
-		dynamic_hair_suffix = ""
-		dynamic_fhair_suffix = ""
-		flash_protect = 1
-		glass_colour_type = /datum/client_colour/glass_colour/red
-		lighting_alpha = LIGHTING_PLANE_ALPHA_LOWLIGHT_VISION
-		darkness_view = 128
+/obj/item/clothing/head/helmet/f13/ncr/rangercombat
+	name = "ranger combat helmet"
+	desc = "An old combat helmet, out of use around the time of the war."
+	icon_state = "ranger"
+	item_state = "ranger"
+	armor = list("melee" = 60, "bullet" = 50, "laser" = 30, "energy" = 50, "bomb" = 39, "bio" = 60, "rad" = 60, "fire" = 90, "acid" = 0)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
+	flash_protect = 1
+	glass_colour_type = /datum/client_colour/glass_colour/red
+	lighting_alpha = LIGHTING_PLANE_ALPHA_LOWLIGHT_VISION
+	darkness_view = 128
 
 /obj/item/clothing/head/helmet/f13/ncr/rangercombat/rigscustom
-	name = "11th Armored Calvary Helmet"
+	name = "11th armored calvary helmet"
 	desc = "An advanced combat helmet used by the 11th Armored Calvary Regiment before the war. There is a worn and faded 11th Armored Calvary Regiment's insignia just above the visor. The helmet itself has some scratches and dents sustained from battle."
 	icon_state = "rigscustom_helmet"
 	item_state = "rigscustom_helmet"
 	icon = 'icons/fallout/clothing/hats.dmi'
+
+/obj/item/clothing/head/helmet/f13/ncr/rangercombat/mosshelmet
+	name = "veteran patrol stetson"
+	desc = "A weathered campaign hat tightly fitted over the viscera of a ranger combat helmet. The old stetson is faded with age and heavy use, having seen the green shores of California to the white peaks of the rockies."
+	icon_state = "mosshelmet"
+	item_state = "mosshelmet"
+	flags_inv = HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACE
+	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/helmet/f13/ncr/rangercombat/desert
 	name = "desert ranger combat helmet"
@@ -913,32 +977,26 @@
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 	speechspan = SPAN_ROBOT //makes you sound like a robot
-	darkness_view = 128
+	darkness_view = 128 //Literally NV
 	lighting_alpha = LIGHTING_PLANE_ALPHA_LOWLIGHT_VISION
 	var/emped = 0
 	var/requires_training = TRUE
-	var/brightness_on = 4 //luminosity when the light is on
-	var/on = 0
+	light_range = 4 //luminosity when the light is on
+	light_on = FALSE
+	var/on = FALSE
 	light_color = LIGHT_COLOR_YELLOW
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	actions_types = list(/datum/action/item_action/toggle_light)
 
 /obj/item/clothing/head/helmet/f13/power_armor/attack_self(mob/user)
 	on = !on
 //	icon_state = "[initial(icon_state)][on]"
 	user.update_inv_head()	//so our mob-overlays update
 
-	if(on)
-		turn_on(user)
-	else
-		turn_off(user)
+	set_light_on(on)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
-
-/obj/item/clothing/head/helmet/f13/power_armor/proc/turn_on(mob/user)
-	set_light(brightness_on)
-
-/obj/item/clothing/head/helmet/f13/power_armor/proc/turn_off(mob/user)
-	set_light(0)
 
 /obj/item/clothing/head/helmet/f13/power_armor/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
 	var/mob/living/carbon/human/H = user
@@ -979,7 +1037,8 @@
 	icon_state = "t45bhelmet"
 	item_state = "t45bhelmet"
 	armor = list("melee" = 75, "bullet" = 60, "laser" = 30, "energy" = 50, "bomb" = 48, "bio" = 60, "rad" = 50, "fire" = 80, "acid" = 0)
-	darkness_view = 0
+	darkness_view = 0 //No NV
+	slowdown = 0.2 //No servo
 	lighting_alpha = null
 	requires_training = FALSE
 
@@ -989,6 +1048,8 @@
 	icon_state = "raiderpa_helm"
 	item_state = "raiderpa_helm"
 	armor = list("melee" = 50, "bullet" = 45, "laser" = 30, "energy" = 25, "bomb" = 39, "bio" = 0, "rad" = 50, "fire" = 0, "acid" = 0)
+	darkness_view = 0 //No NV
+	slowdown = 0.2 //No servo
 	lighting_alpha = null
 	requires_training = FALSE
 
@@ -1001,6 +1062,8 @@
 	icon_state = "t45hotrod_helm"
 	item_state = "t45hotrod_helm"
 	armor = list("melee" = 50, "bullet" = 45, "laser" = 30, "energy" = 25, "bomb" = 39, "bio" = 0, "rad" = 50, "fire" = 0, "acid" = 0)
+	darkness_view = 110 //Some worse NV
+	light_color = COLOR_RED_LIGHT
 	lighting_alpha = null
 	requires_training = FALSE
 
@@ -1009,6 +1072,7 @@
 	desc = "It's an advanced power armor Mk I helmet, typically used by the Enclave. It looks somewhat threatening."
 	icon_state = "advhelmet1"
 	item_state = "advhelmet1"
+	darkness_view = 150 // Advanced NV
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 75, "bomb" = 72, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 0)
 
 /obj/item/clothing/head/helmet/f13/power_armor/advanced/mk2
@@ -1016,20 +1080,24 @@
 	desc = "It's an improved model of advanced power armor used exclusively by the Enclave military forces, developed after the Great War.<br>Like its older brother, the standard advanced power armor, it's matte black with a menacing appearance, but with a few significant differences - it appears to be composed entirely of lightweight ceramic composites rather than the usual combination of metal and ceramic plates.<br>Additionally, like the T-51b power armor, it includes a recycling system that can convert human waste into drinkable water, and an air conditioning system for it's user's comfort."
 	icon_state = "advhelmet2"
 	item_state = "advhelmet2"
+	darkness_view = 170 // Advanced NV II
 	armor = list("melee" = 90, "bullet" = 90, "laser" = 60, "energy" = 90, "bomb" = 72, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 0)
 
 /obj/item/clothing/head/helmet/f13/power_armor/tesla
 	name = "tesla power helmet"
 	desc = "A helmet typically used by Enclave special forces.<br>There are three orange energy capacitors on the side."
+	darkness_view = 160 // Advanced NV
 	icon_state = "tesla"
 	item_state = "tesla"
 	armor = list("melee" = 90, "bullet" = 50, "laser" = 95, "energy" = 95, "bomb" = 62, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 0)
+	light_color = COLOR_DARK_CYAN
 
 /obj/item/clothing/head/helmet/f13/power_armor/t51b
 	name = "T-51b power helmet"
 	desc = "It's a T-51b power helmet, typically used by the Brotherhood. It looks somewhat charming."
 	icon_state = "t51bhelmet"
 	item_state = "t51bhelmet"
+	darkness_view = 135 // Advanced NV
 	armor = list("melee" = 70, "bullet" = 65, "laser" = 55, "energy" = 65, "bomb" = 62, "bio" = 100, "rad" = 99, "fire" = 90, "acid" = 0)
 
 /obj/item/clothing/head/helmet/f13/power_armor/t51b/ultra
@@ -1038,12 +1106,14 @@
 	icon_state = "ultracitepa_helm"
 	item_state = "ultracitepa_helm"
 	slowdown = 0
+	light_color = COLOR_DARK_CYAN
 
 /obj/item/clothing/head/helmet/f13/power_armor/t60
 	name = "T-60a power helmet"
 	desc = "The T-60 powered helmet, equipped with targetting software suite, Friend-or-Foe identifiers, dynamic HuD, and an internal music player."
 	icon_state = "t60helmet"
 	item_state = "t60helmet"
+	darkness_view = 145 // Advanced NV
 	armor = list("melee" = 75, "bullet" = 70, "laser" = 60, "energy" = 70, "bomb" = 82, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 0)
 
 /obj/item/clothing/head/helmet/f13/power_armor/t45d
@@ -1111,7 +1181,7 @@
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				if(S.on)
-					set_light(0)
+					set_light_on(FALSE)
 				F = S
 				update_icon()
 				update_helmlight(user)
@@ -1158,13 +1228,13 @@
 /obj/item/clothing/head/helmet/proc/update_helmlight(mob/user = null)
 	if(F)
 		if(F.on)
-			set_light(F.brightness_on)
+			set_light_on(TRUE)
 		else
-			set_light(0)
+			set_light_on(FALSE)
 		update_icon()
 
 	else
-		set_light(0)
+		set_light_on(FALSE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

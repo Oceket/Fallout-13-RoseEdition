@@ -36,6 +36,23 @@
 /obj/item/ammo_box/magazine/m45/empty
 	start_empty = 1
 
+/obj/item/ammo_box/magazine/m45exp
+	name = "socom magazine (.45)"
+	icon_state = "45exp-12"
+	ammo_type = /obj/item/ammo_casing/c45
+	caliber = ".45"
+	max_ammo = 12
+
+/obj/item/ammo_box/magazine/m45exp/update_icon()
+	..()
+	if (ammo_count() >= 12)
+		icon_state = "45exp-12"
+	else
+		icon_state = "45exp-[ammo_count()]"
+
+/obj/item/ammo_box/magazine/m45exp/empty
+	start_empty = 1
+
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"
 	icon_state = "9x19p-8"

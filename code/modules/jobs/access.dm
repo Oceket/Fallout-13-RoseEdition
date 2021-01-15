@@ -14,7 +14,7 @@
 	else if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		//if they are holding or wearing a card that has access, that works
-		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id))
+		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id) || src.check_access(H.gloves))
 			return TRUE
 	else if(ismonkey(M) || isalienadult(M))
 		var/mob/living/carbon/george = M
@@ -325,6 +325,8 @@
 			return "BOS Access"
 		if(ACCESS_NCR)
 			return "NCR Access"
+		if (ACCESS_NCROFFDUTY)
+			return "NCR Off-Duty Access"
 
 /proc/get_centcom_access_desc(A)
 	switch(A)
@@ -356,7 +358,7 @@
 				"NCR Scout", "NCR Scout Sergeant", "NCR Scout Lieutenant",
 				"Chief of Security", "Vault-tec Doctor", "Vault-tec Scientist",
 				"Vault-tec Security", "Vault-tec Engineer", "Vault Dweller", "Settler",
-				"Wastelander", "Raider", "Great Khan", "Preacher", "Head Hunter", "Chief", "Shaman", "Villager", "Hunter")
+				"Wastelander", "Raider", "Great Khan", "Preacher", "Chief Hunter", "Chief", "Shaman", "Villager", "Hunter")
 
 /proc/get_all_job_icons() //For all existing HUD icons
 	return get_all_jobs() + list("Prisoner")

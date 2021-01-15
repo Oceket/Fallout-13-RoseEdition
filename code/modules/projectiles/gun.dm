@@ -17,6 +17,8 @@
 	attack_verb = list("struck", "hit", "bashed")
 	item_flags = SLOWS_WHILE_IN_HAND
 	
+	var/customburst = 1
+	var/gun_icon_state = null
 	var/gunslinger = FALSE
 	var/fire_sound = "gunshot"
 	var/suppressed = null					//whether or not a message is displayed when fired
@@ -29,7 +31,7 @@
 	var/sawn_desc = null				//description change if weapon is sawn-off
 	var/sawn_off = FALSE
 	var/burst_size = 1					//how large a burst is
-	var/fire_delay = 0					//rate of fire for burst firing and semi auto
+	var/fire_delay = 6					//rate of fire for burst firing and semi auto
 	var/burst_delay = 2					//rate of fire between shots in a burst
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
@@ -39,7 +41,7 @@
 	var/distro = 0						//Affects distance between shotgun pellets, ignore unless you're altering shotguns
 	var/extra_damage = 0				//Number to add to individual bullets.
 	var/extra_penetration = 0			//Number to add to armor penetration of individual bullets.
-	var/projectile_speed = 0.8			//Speed of the projectiles shot from gun in deciseconds per 1 tile
+	var/projectile_speed = 0.4			//Speed of the projectiles shot from gun in deciseconds per 1 tile (Нормальное значение 0.8)
 
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
@@ -95,7 +97,7 @@
 	build_zooming()
 
 /obj/item/gun/New()
-	. = ..()	
+	. = ..()
 	src.slowdown = (w_class / 5)
 	if(gunslinger)
 		src.slowdown = 0.05
@@ -206,6 +208,15 @@
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire [src]!</span>")
 		return
 
+	if(user.special_s<2)
+		to_chat(user, "<span class='userdanger'>You can't pull the trigger, you too weak!</span>")
+		return
+
+	if(istype(src, /obj/item/gun/energy) && user.special_i <= 3)
+		user.dropItemToGround(src, TRUE)
+		to_chat(user, "<span class='userdanger'>YOU CAN'T UNDERSTAND HOW GUN CAN SHOOT WITH LASER'S AND TRYING TO SHOOT FROM GUN THIS FORM YOU JUST DROP IT ON THE FLOOR!</span>")
+		return
+
 	//DUAL (or more!) WIELDING
 	var/bonus_spread = 0
 	var/loop_counter = 0
@@ -307,6 +318,8 @@
 		randomized_gun_spread =	rand(0,spread)
 	if(user.has_trait(TRAIT_POOR_AIM)) //nice shootin' tex
 		bonus_spread += 60
+	if(user.special_s<3)
+		bonus_spread += 20
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if(burst_size > 1)
@@ -406,9 +419,7 @@
 			if(!user.transferItemToLoc(I, src))
 				return
 			to_chat(user, "<span class='notice'>You click \the [S] into place on \the [src].</span>")
-			if(S.on)
-				set_light(0)
-			gun_light = S
+			set_gun_light(S)
 			update_gunlight(user)
 			alight = new /datum/action/item_action/toggle_gunlight(src)
 			if(loc == user)
@@ -429,6 +440,9 @@
 			knife_overlay.pixel_x = knife_x_offset
 			knife_overlay.pixel_y = knife_y_offset
 			add_overlay(knife_overlay, TRUE)
+	else if(istype(I, /obj/item/hatchet))
+		if (istype(src,/obj/item/gun/ballistic/shotgun/trench))
+			combine_items(user,I,src, new /obj/item/gun/ballistic/shotgun/trench/hatchet)//hatchet shotgun
 	else if(istype(I, /obj/item/attachments/scope))
 		if(!can_scope)
 			return ..()
@@ -506,7 +520,7 @@
 		if(gun_light)
 			var/obj/item/flashlight/seclite/S = gun_light
 			to_chat(user, "<span class='notice'>You unscrew the seclite from \the [src].</span>")
-			gun_light = null
+			set_gun_light(null)
 			S.forceMove(get_turf(user))
 			update_gunlight(user)
 			S.update_brightness(user)
@@ -530,13 +544,39 @@
 		else
 			return ..()
 
+///Called when gun_light value changes.
+/obj/item/gun/proc/set_gun_light(obj/item/flashlight/seclite/new_light)
+	if(gun_light == new_light)
+		return
+	. = gun_light
+	gun_light = new_light
+	if(gun_light)
+		gun_light.set_light_flags(gun_light.light_flags | LIGHT_ATTACHED)
+		if(gun_light.loc != src)
+			gun_light.forceMove(src)
+	else if(.)
+		var/obj/item/flashlight/seclite/old_gun_light = .
+		old_gun_light.set_light_flags(old_gun_light.light_flags & ~LIGHT_ATTACHED)
+		if(old_gun_light.loc == src)
+			old_gun_light.forceMove(get_turf(src))
+
+
+
 /obj/item/gun/proc/toggle_gunlight()
 	if(!gun_light)
 		return
 
 	var/mob/living/carbon/human/user = usr
 	gun_light.on = !gun_light.on
+	gun_light.update_brightness()
 	to_chat(user, "<span class='notice'>You toggle the gunlight [gun_light.on ? "on":"off"].</span>")
+
+	if(user.special_l < 3)
+		switch(rand(1,5))
+			if(3)
+				to_chat(user,"When you tried turn on flashlight, you hear only click. Nothing happen. Try again.")
+				playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+				return
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_gunlight(user)
@@ -544,10 +584,6 @@
 
 /obj/item/gun/proc/update_gunlight(mob/user = null)
 	if(gun_light)
-		if(gun_light.on)
-			set_light(gun_light.brightness_on)
-		else
-			set_light(0)
 		cut_overlays(flashlight_overlay, TRUE)
 		var/state = "flight[gun_light.on? "_on":""]"	//Generic state.
 		if(gun_light.icon_state in icon_states('icons/obj/guns/flashlights.dmi'))	//Snowflake state?

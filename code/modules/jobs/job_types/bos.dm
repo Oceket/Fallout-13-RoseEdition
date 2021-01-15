@@ -16,12 +16,13 @@ Main doors: ACCESS_CAPTAIN 20
 /datum/outfit/job/bos
 	name = "bosdatums"
 	jobtype = /datum/job/bos
-	backpack = /obj/item/storage/backpack/explorer
-	ears = /obj/item/radio/headset/headset_bos
-	uniform =		/obj/item/clothing/under/syndicate/brotherhood
-	shoes = /obj/item/clothing/shoes/combat/swat
-	gloves = /obj/item/clothing/gloves/combat
-	id = /obj/item/card/id/dogtag
+	backpack = 	/obj/item/storage/backpack/explorer
+	satchel = 	/obj/item/storage/backpack/satchel/explorer
+	ears = 		/obj/item/radio/headset/headset_bos
+	uniform =	/obj/item/clothing/under/syndicate/brotherhood
+	shoes = 	/obj/item/clothing/shoes/combat/swat
+	gloves = 	/obj/item/clothing/gloves/combat
+	id = 		/obj/item/card/id/dogtag
 
 /datum/outfit/job/bos/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -258,8 +259,8 @@ Knight-Captain
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG)
 
-/datum/job/bos/f13knightcap/after_spawn(mob/living/carbon/human/H, mob/M)
-	H.add_quirk("Master Gunsmith")
+// /datum/job/bos/f13knightcap/after_spawn(mob/living/carbon/human/H, mob/M)
+// 	H.add_quirk("Master Gunsmith")
 
 /datum/outfit/job/bos/f13knightcap/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -611,8 +612,8 @@ datum/job/bos/f13seniorknight
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 
-/datum/job/bos/f13seniorknight/after_spawn(mob/living/carbon/human/H, mob/M)
-	H.add_quirk("Master Gunsmith")
+// /datum/job/bos/f13seniorknight/after_spawn(mob/living/carbon/human/H, mob/M)
+// 	H.add_quirk("Master Gunsmith")
 
 /datum/outfit/job/bos/f13seniorknight
 	name = "Senior Knight"
@@ -789,6 +790,7 @@ Initiate
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak=2,
 		/obj/item/book/granter/trait/chemistry=1,
+		/obj/item/book/granter/trait/field_surgery,
 		/obj/item/clothing/accessory/bos/initiateS=1
 		)
 

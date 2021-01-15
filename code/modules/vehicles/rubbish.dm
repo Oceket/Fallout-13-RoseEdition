@@ -307,7 +307,18 @@
 	density = 1
 	layer = ABOVE_MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE
+	var/looted = FALSE
 	var/weld = 0
+
+/obj/structure/car/attack_hand(mob/user)
+	. = ..()
+	if(!looted)
+		if(do_after(user, 5, TRUE, src))
+			to_chat(user, "You remove the old battery.")
+			new /obj/item/defibrillator/ghetto(user.loc)
+			looted = TRUE
+	else
+		to_chat(user, "Its empty.")
 
 /obj/structure/car/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weldingtool))
@@ -339,7 +350,6 @@
 
 /obj/structure/car/highwayman/Initialize()
 	icon_state = "car[rand(1, 4)]"
-
 	var/atom/movable/S = new (locate(x+1,y,z))
 	S.density = 1
 	S.anchored = 1
@@ -352,6 +362,14 @@
 	S.icon = null
 	S.verbs.Cut()
 
+/obj/structure/car/highwayman/snow_act()
+	snow = TRUE
+	pre_snow_state = icon_state
+	icon_state = "[icon_state]_snow"
+
+/obj/structure/car/highwayman/heat_act()
+	snow = FALSE
+	icon_state = pre_snow_state
 
 /obj/structure/debris/v1
 	name = "pre-War building debris"

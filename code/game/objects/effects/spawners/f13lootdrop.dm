@@ -320,6 +320,24 @@
 				/obj/item/clothing/head/helmet/f13/sulphitehelm
 				)
 
+/obj/effect/spawner/lootdrop/f13/stealthboy
+	name = "stealthboy spawner"
+	lootcount = 2
+	var/loot1 = list(/obj/item/stealthboy/makeshift, /obj/item/storage/pill_bottle/chem_tin/mentats)
+	var/loot2 = list(/obj/item/stealthboy, /obj/item/storage/pill_bottle/chem_tin/mentats)
+	var/loot3 = list(/obj/item/stealthboy/mk2, /obj/item/storage/pill_bottle/chem_tin/mentats)
+
+/obj/effect/spawner/lootdrop/f13/stealthboy/Initialize(mapload) //on mapload, pick what shit to spawn
+	if(prob(5))
+		loot = loot1
+	else if (prob(10))
+		loot = loot2
+	else if (prob(15))
+		loot = loot3
+	else
+		loot = list()
+	. = ..()
+
 /obj/effect/spawner/lootdrop/f13/armor/tier3/Initialize(mapload) //on mapload, pick what shit to spawn
 	loot = pick(loot1, loot2, loot3, loot4, loot5, loot6, loot7, loot8, loot9)
 	. = ..()
@@ -355,6 +373,7 @@
 
 /obj/effect/spawner/lootdrop/f13/armor/tier5 //TIER 5 ARMOR
 	name = "tier 5 armor"
+	icon_state = "special"
 	lootcount = 2
 	var/loot1 = list(
 				/obj/item/clothing/suit/armor/f13/power_armor/t45d,
@@ -519,6 +538,7 @@
 				/obj/item/pickaxe,
 				/obj/item/shovel,
 				/obj/item/switchblade,
+				/obj/item/switchblade/penknife,
 				/obj/item/throwing_star/spear,
 				/obj/item/surgicaldrill,
 				/obj/item/kitchen/knife/combat,
@@ -570,8 +590,8 @@
 
 /obj/effect/spawner/lootdrop/f13/weapon/melee/tier5 //TIER 5 MELEE WEAPON
 	name = "tier 5 melee"
+	icon_state = "special"
 	lootcount = 1
-
 	loot = list(
 				/obj/item/twohanded/required/thermic_lance,
 				/obj/item/twohanded/required/chainsaw,
@@ -633,7 +653,7 @@
 	var/loot3 = list(
 				/obj/item/gun/ballistic/shotgun/boltaction,
 				/obj/item/ammo_box/a762,
-				//obj/item/ammo_box/a762
+				/obj/item/ammo_box/a762
 				)
 
 	var/loot4 = list(
@@ -651,38 +671,38 @@
 	var/loot6 = list(
 				/obj/item/gun/ballistic/shotgun/remington,
 				/obj/item/ammo_box/a308,
-				//obj/item/ammo_box/a308
+				/obj/item/ammo_box/a308
 				)
 
 	var/loot7 = list(
 				/obj/item/gun/ballistic/automatic/pistol/n99,
 				/obj/item/ammo_box/magazine/m10mm_adv,
-				//obj/item/ammo_box/magazine/m10mm_adv
+				/obj/item/ammo_box/magazine/m10mm_adv
 				)
 
 	var/loot8 = list(
 				/obj/item/gun/ballistic/automatic/pistol/m1911,
 				/obj/item/ammo_box/magazine/m45,
-				//obj/item/ammo_box/magazine/m45
+				/obj/item/ammo_box/magazine/m45
 				)
 
 	var/loot9 = list(
 				/obj/item/gun/ballistic/automatic/pistol/ninemil,
 				/obj/item/ammo_box/magazine/m9mm,
-				//obj/item/ammo_box/magazine/m9mm
+				/obj/item/ammo_box/magazine/m9mm
 				)
 
 	var/loot10 = list(
 				/obj/item/gun/ballistic/revolver/colt6250,
 				/obj/item/ammo_box/l10mm,
-				//obj/item/ammo_box/l10mm
+				/obj/item/ammo_box/l10mm
 				)
 
 	var/loot11 = list(
 				/obj/item/gun/ballistic/automatic/marksman/servicerifle/varmint,
-				//obj/item/ammo_box/magazine/m556/rifle/small,
+				/obj/item/ammo_box/magazine/m556/rifle/small,
 				/obj/item/ammo_box/magazine/m556/rifle/small)
-	
+
 	var/loot12 = list(
 				/obj/item/gun/ballistic/revolver/m29/snub,
 				/obj/item/ammo_box/m44
@@ -705,45 +725,45 @@
 	var/loot2 = list(
 				/obj/item/gun/ballistic/revolver/m29,
 				/obj/item/ammo_box/m44,
-				//obj/item/ammo_box/m44
+				/obj/item/ammo_box/m44
 				)
 
 	var/loot3 = list(
 				/obj/item/gun/ballistic/shotgun/remington/scoped,
-				//obj/item/ammo_box/a308,
+				/obj/item/ammo_box/a308,
 				/obj/item/ammo_box/a308
 				)
 
 	var/loot4 = list(
 				/obj/item/gun/ballistic/revolver/m29/scoped,
-				//obj/item/ammo_box/m44,
+				/obj/item/ammo_box/m44,
 				/obj/item/ammo_box/m44
 				)
 
 	var/loot5 = list(/obj/item/gun/ballistic/shotgun/automatic/hunting/cowboy,
-				//obj/item/ammo_box/tube/a357,
+				/obj/item/ammo_box/tube/a357,
 				/obj/item/ammo_box/tube/a357
 				)
 
 	var/loot6 = list(/obj/item/gun/ballistic/shotgun/automatic/hunting/cowboy/scoped,
-				//obj/item/ammo_box/tube/a357,
+				/obj/item/ammo_box/tube/a357,
 				/obj/item/ammo_box/tube/a357
 				)
 
 	var/loot7 = list(/obj/item/gun/ballistic/revolver/colt357,
-				//obj/item/ammo_box/a357,
+				/obj/item/ammo_box/a357,
 				/obj/item/ammo_box/a357
 				)
 
 	var/loot8 = list(
 				/obj/item/gun/ballistic/automatic/marksman/servicerifle,
-				//obj/item/ammo_box/magazine/m556/rifle,
+				/obj/item/ammo_box/magazine/m556/rifle,
 				/obj/item/ammo_box/magazine/m556/rifle
 				)
 
 	var/loot9 = list(
 				/obj/item/gun/ballistic/revolver/police,
-				//obj/item/ammo_box/a357,
+				/obj/item/ammo_box/a357,
 				/obj/item/ammo_box/a357
 	)
 	var/loot10 = list(
@@ -759,9 +779,18 @@
 				/obj/item/gun/ballistic/automatic/pistol/sig,
 				/obj/item/ammo_box/magazine/m9mm
 	)
+	var/loot13 = list(
+				/obj/item/gun/ballistic/automatic/m1carbine,
+				/obj/item/ammo_box/magazine/m10mm_adv
+	)
+	var/loot14 = list(
+				/obj/item/gun/ballistic/automatic/pistol/socommk23kalibmanbad,
+				/obj/item/ammo_box/magazine/m45exp,
+				/obj/item/ammo_box/magazine/m45exp
+	)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/tier2/Initialize(mapload) //on mapload, pick what shit to spawn
-	loot = pick(loot1, loot2, loot3, loot4, loot5, loot6, loot7, loot8, loot9, loot10, loot11, loot12)
+	loot = pick(loot1, loot2, loot3, loot4, loot5, loot6, loot7, loot8, loot9, loot10, loot11, loot12, loot13, loot14)
 	. = ..()
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/tier3 //TIER 3 GUN
@@ -771,18 +800,18 @@
 	var/loot1 = list(
 				/obj/item/gun/ballistic/automatic/mini_uzi,
 				/obj/item/ammo_box/magazine/uzim9mm,
-				//obj/item/ammo_box/magazine/uzim9mm
+				/obj/item/ammo_box/magazine/uzim9mm
 				)
 
 	var/loot2 = list(
 				/obj/item/gun/ballistic/automatic/smg10mm,
-				//obj/item/ammo_box/magazine/m10mm_auto,
+				/obj/item/ammo_box/magazine/m10mm_auto,
 				/obj/item/ammo_box/magazine/m10mm_auto
 				)
 
 	var/loot3 = list(
 				/obj/item/gun/ballistic/automatic/greasegun,
-				//obj/item/ammo_box/magazine/greasegun,
+				/obj/item/ammo_box/magazine/greasegun,
 				/obj/item/ammo_box/magazine/greasegun
 				)
 
@@ -799,19 +828,19 @@
 
 	var/loot6 = list(
 				/obj/item/gun/ballistic/revolver/needler,
-				//obj/item/ammo_box/needle,
+				/obj/item/ammo_box/needle,
 				/obj/item/ammo_box/needle
 				)
 
 	var/loot7 = list(
 				/obj/item/gun/ballistic/shotgun/automatic/hunting/trail,
-			    //obj/item/ammo_box/tube/m44,
+			    /obj/item/ammo_box/tube/m44,
 				/obj/item/ammo_box/tube/m44
 				)
 
 	var/loot8 = list(
 				/obj/item/gun/ballistic/shotgun/automatic/hunting/trail/scoped,
-				//obj/item/ammo_box/tube/m44,
+				/obj/item/ammo_box/tube/m44,
 				/obj/item/ammo_box/tube/m44
 				)
 	var/loot9 = list(
@@ -829,20 +858,20 @@
 	lootcount = 3
 	var/loot1 = list(
 				/obj/item/gun/ballistic/automatic/assault_rifle,
-				//obj/item/ammo_box/magazine/m556/rifle/assault,
+				/obj/item/ammo_box/magazine/m556/rifle/assault,
 				/obj/item/ammo_box/magazine/m556/rifle/assault
 				)
 
 	var/loot2 = list(
 				/obj/item/gun/ballistic/automatic/marksman,
-				//obj/item/ammo_box/magazine/m556/rifle,
+				/obj/item/ammo_box/magazine/m556/rifle,
 				/obj/item/ammo_box/magazine/m556/rifle
 				)
 
 	var/loot3 = list(
 				/obj/item/gun/ballistic/automatic/pistol/deagle,
 				/obj/item/ammo_box/magazine/a50,
-				//obj/item/ammo_box/magazine/a50
+				/obj/item/ammo_box/magazine/a50
 				)
 
 	var/loot4 = list(
@@ -865,40 +894,40 @@
 
 	var/loot7 = list(
 				/obj/item/gun/ballistic/automatic/assault_rifle/infiltrator,
-				//obj/item/ammo_box/magazine/m556/rifle,
+				/obj/item/ammo_box/magazine/m556/rifle,
 				/obj/item/ammo_box/magazine/m556/rifle
 				)
 
 	var/loot8 = list(
 				 /obj/item/gun/ballistic/shotgun/automatic/hunting/brush,
-				 //obj/item/ammo_box/tube/c4570,
+				 /obj/item/ammo_box/tube/c4570,
 				 /obj/item/ammo_box/tube/c4570
 				 )
 
 	var/loot9 = list(
 				/obj/item/gun/ballistic/shotgun/automatic/hunting/brush/scoped,
 				/obj/item/ammo_box/tube/c4570,
-				//obj/item/ammo_box/tube/c4570,
+				/obj/item/ammo_box/tube/c4570,
 				""
 				)
 
 	var/loot10 = list(
 				/obj/item/gun/ballistic/shotgun/antimateriel,
-				//obj/item/ammo_box/a50MG,
+				/obj/item/ammo_box/a50MG,
 				/obj/item/ammo_box/a50MG,
 				""
 				)
 
 	var/loot11 = list(
 				/obj/item/gun/ballistic/automatic/rangemaster,
-				//obj/item/ammo_box/magazine/m762,
+				/obj/item/ammo_box/magazine/m762,
 				/obj/item/ammo_box/magazine/m762,
 				""
 				)
 
 	var/loot12 = list(
 				/obj/item/gun/ballistic/automatic/shotgun/riot,
-				//obj/item/ammo_box/magazine/d12g,
+				/obj/item/ammo_box/magazine/d12g,
 				/obj/item/ammo_box/magazine/d12g,
 				""
 				)
@@ -911,7 +940,7 @@
 
 	var/loot14 = list(
 				/obj/item/gun/energy/laser/plasma/glock,
-				//obj/item/stock_parts/cell/ammo/ec,
+				/obj/item/stock_parts/cell/ammo/ec,
 				/obj/item/stock_parts/cell/ammo/ec,
 				)
 
@@ -919,9 +948,14 @@
 				/obj/item/gun/medbeam,
 				""
 				)
+	var/loot16 = list(
+				/obj/item/gun/ballistic/automatic/type93,
+				/obj/item/ammo_box/magazine/m556/rifle/assault,
+				/obj/item/ammo_box/magazine/m556/rifle/assault
+				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/tier4/Initialize(mapload) //on mapload, pick what shit to spawn
-	loot = pick(loot1, loot2, loot3, loot4, loot5, loot6, loot7, loot8, loot9, loot10, loot11, loot12, loot13, loot14, loot15)
+	loot = pick(loot1, loot2, loot3, loot4, loot5, loot6, loot7, loot8, loot9, loot10, loot11, loot12, loot13, loot14, loot15, loot16)
 	. = ..()
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/tier5 //TIER 5 GUN
@@ -936,7 +970,8 @@
 				/obj/item/gun/ballistic/revolver/sequoia/scoped,
 				/obj/item/gun/ballistic/automatic/bozar,
 				/obj/item/gun/energy/gammagun,
-				/obj/item/gun/ballistic/automatic/p90
+				/obj/item/gun/ballistic/automatic/p90,
+				/obj/item/gun/energy/tesla_cannon
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/unique //UNIQUE GUN
@@ -956,11 +991,11 @@
     lootcount = 1
 
     loot = list(
-            /obj/effect/spawner/lootdrop/f13/weapon/gun/tier1 = 80,
+            /obj/effect/spawner/lootdrop/f13/weapon/gun/tier1 = 60,
             /obj/effect/spawner/lootdrop/f13/weapon/gun/tier2 = 14,
             /obj/effect/spawner/lootdrop/f13/weapon/gun/tier3 = 4,
             /obj/effect/spawner/lootdrop/f13/weapon/gun/tier4 = 1,
-            /obj/effect/spawner/lootdrop/f13/weapon/gun/tier5 = 1
+            /obj/effect/spawner/lootdrop/trash = 21
             )
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/random_high
@@ -1186,6 +1221,7 @@
 
 /obj/effect/spawner/lootdrop/f13/foodspawner
 	name = "food spawner"
+	icon_state = "food"
 	lootdoubles = TRUE
 	fan_out_items = TRUE
 
@@ -1443,6 +1479,8 @@
 	lootcount = 1
 	loot = list(/obj/item/book/granter/trait/chemistry = 10,
 	/obj/item/book/granter/trait/trekking = 10,
+	/obj/item/book/granter/trait/field_surgery = 20,
+	/obj/item/book/granter/trait/brain_surgery = 10,
 	/obj/item/book/granter/trait/pa_wear = 1,
 	/obj/item/book/granter/trait/gunsmith_one = 50,
 	/obj/item/book/granter/trait/gunsmith_two = 20,
@@ -1454,14 +1492,17 @@
 	icon_state = "blueprint_loot"
 	lootcount = 1
 	loot = list(
-		//obj/item/blueprint/weapon/AEP7,
-		//obj/item/blueprint/weapon/lever_action,
-		//obj/item/blueprint/weapon/kar98,
-		/obj/item/prefabs/complex/action/auto,
-		/obj/item/prefabs/complex/bolt/high,
-		/obj/item/prefabs/complex/barrel/m4570,
-		/obj/item/prefabs/complex/barrel/m762
-	)
+		/obj/item/advanced_crafting_components/capacitor/flux,
+		/obj/item/advanced_crafting_components/lenses,
+		/obj/item/advanced_crafting_components/conductors/super,
+		/obj/item/advanced_crafting_components/receiver,
+		/obj/item/advanced_crafting_components/assembly,
+	    /obj/item/advanced_crafting_components/alloys,
+		/obj/item/attachments/scope,
+		/obj/item/attachments/bullet_speed,
+		/obj/item/attachments/burst_improvement,
+		/obj/item/attachments/recoil_decrease)
+
 /obj/effect/spawner/lootdrop/f13/blueprintMid
 	name = "blueprint-tier(Mid) item spawner"
 	icon_state = "blueprint_loot"
@@ -1485,10 +1526,11 @@
 		/obj/item/blueprint/weapon/AER9/limited,
 		//obj/item/blueprint/weapon/brush/limited,
 		//obj/item/blueprint/weapon/grease_gun/limited,
-		/obj/item/blueprint/weapon/mg34/limited,
+		/obj/item/blueprint/weapon/mg34/limited
+		/*
 		/obj/item/prefabs/complex/action/auto,
 		/obj/item/prefabs/complex/bolt/high,
-		/obj/item/prefabs/complex/barrel/m4570
+		*/
 	)
 /obj/effect/spawner/lootdrop/f13/blueprintHigh
 	name = "blueprint-tier(High) item spawner"
@@ -1528,9 +1570,9 @@
 	lootcount = 1
 	lootdoubles = FALSE
 	loot = list(
-		/obj/item/advanced_crafting_components/flux,
+		/obj/item/advanced_crafting_components/capacitor/flux,
 		/obj/item/advanced_crafting_components/lenses,
-		/obj/item/advanced_crafting_components/conductors,
+		/obj/item/advanced_crafting_components/conductors/super,
 		/obj/item/advanced_crafting_components/receiver,
 		/obj/item/advanced_crafting_components/assembly,
 	    /obj/item/advanced_crafting_components/alloys,

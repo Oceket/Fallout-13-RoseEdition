@@ -16,11 +16,12 @@
 	box = null
 
 /datum/outfit/job/CaesarsLegion/Legionnaire
-	belt = /obj/item/storage/belt/military/assault/legion
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	uniform = 		/obj/item/clothing/under/f13/legskirt
-	shoes = 		/obj/item/clothing/shoes/f13/military/legionmetal
-	gloves =		/obj/item/clothing/gloves/legion
+	belt = 		/obj/item/storage/belt/military/assault/legion
+	backpack = 	/obj/item/storage/backpack/explorer
+	satchel = 	/obj/item/storage/backpack/satchel/explorer
+	uniform = 	/obj/item/clothing/under/f13/legskirt
+	shoes = 	/obj/item/clothing/shoes/f13/military/legionmetal
+	gloves =	/obj/item/clothing/gloves/legion
 
 /datum/outfit/job/CaesarsLegion/Legionnaire/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -47,7 +48,7 @@ Needs whitelist
 */
 /datum/job/CaesarsLegion/Legionnaire/f13legate
 	title = "Legate"
-//	faction = "Legion"
+	faction = "Legion"
 	flag = F13LEGATE
 	head_announce = list("Security")
 	supervisors = "Caesar"
@@ -397,7 +398,7 @@ Decanii
 	jobtype = /datum/job/CaesarsLegion/Legionnaire/f13decan
 	id = 			/obj/item/card/id/dogtag/legveteran
 	suit =			/obj/item/clothing/suit/armor/f13/legion/vet
-	head =			/obj/item/clothing/head/helmet/f13/legion/prime/alt
+	head =			/obj/item/clothing/head/helmet/f13/legion/prime/decan
 	mask =			/obj/item/clothing/mask/bandana/legdecan
 	glasses = 		/obj/item/clothing/glasses/sunglasses/big
 	ears = 			/obj/item/radio/headset/headset_legion
@@ -947,6 +948,7 @@ Auxilia
 		/obj/item/retractor=1,
 		/obj/item/circular_saw=1,
 		/obj/item/cautery=1,
+		/obj/item/book/granter/trait/field_surgery=1,
 		/obj/item/surgical_drapes=1,
 		/obj/item/storage/firstaid/ancient=1
 	)

@@ -431,6 +431,13 @@
 	race = /datum/species/android
 	mutationtext = "<span class='danger'>The pain subsides. You feel... artificial.</span>"
 
+/datum/reagent/mutationtoxin/strigoi
+	name = "Vampire Mutation Toxin"
+	id = "strigoimutationtoxin"
+	description = "A Vampirezing toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	race = /datum/species/strigoi
+	mutationtext = "<span class='danger'>The pain subsides. You feel... thirsty for blood.</span>"
 
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton
@@ -1758,4 +1765,17 @@
 /datum/reagent/compost/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(0.5*REM, 0)
 	. = 1
+	..()
+
+/datum/reagent/shredded_glass
+	name = "Shredded glass"
+	id = "glass_shreds"
+	reagent_state = SOLID
+	color = "#00B4FF"
+	taste_description = "shreds"
+
+/datum/reagent/shredded_glass/on_mob_life(mob/living/carbon/M)
+	if(prob(45))
+		to_chat(M, "<span class='danger'>You feel glass shreds moving down your stomach!</span>")
+		M.adjustBruteLoss(4*REM, 0)
 	..()

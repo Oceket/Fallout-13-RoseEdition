@@ -16,7 +16,12 @@
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
+	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
+	var/dynamic_lumcount = 0
+
 	var/blocks_air = FALSE
+	var/snow = FALSE
+	var/snow_trail = TRUE
 
 	var/list/image/blueprint_data //for the station blueprints, images of objects eg: pipes
 
@@ -32,6 +37,12 @@
 
 	var/turf_light_range = 0 // Used for the nightcycle subsystem
 	var/turf_light_power = 0 // Used for the nightcycle subsystem
+
+/turf/proc/snow_act()
+	return
+
+/turf/proc/heat_act()
+	return
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")

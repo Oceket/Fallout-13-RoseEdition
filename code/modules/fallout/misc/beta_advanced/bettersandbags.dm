@@ -1,7 +1,3 @@
-#define SINGLE "single"
-#define VERTICAL "vertical"
-#define HORIZONTAL "horizontal"
-
 #define METAL 1
 #define WOOD 2
 #define SAND 3
@@ -13,15 +9,19 @@
 	desc = "Looks like this would make good cover."
 	anchored = 1
 	density = 1
-	obj_integrity = 100
-	max_integrity = 100
+	obj_integrity = 350
+	max_integrity = 350
 	proj_pass_rate = 50 //How many projectiles will pass the cover. Lower means stronger cover
 	material = METAL
 	var/dirlike = FALSE
 	var/canpass = FALSE
+	var/obj_state = 4
+	var/state_max = 4
 
-/obj/structure/barricade/better/Initialize()
+/obj/structure/barricade/better/New()
 	..()
+	checkbarricade()
+	max_integrity = state_max * 50
 	if(dir == 2)
 		layer = ABOVE_MOB_LAYER
 
@@ -67,13 +67,28 @@
 	else
 		return TRUE
 
+/obj/structure/barricade/better/take_damage()
+	..()
+	if(obj_integrity <= (obj_state - 1) * 50)
+		obj_state --
+		checkbarricade()
+	return
+
+
+/obj/structure/barricade/better/proc/checkbarricade()
+	icon_state = initial(icon_state) + "_[obj_state]"
+	if(obj_state <= 1)
+		density = 0
+		layer = LOW_OBJ_LAYER
+		proj_pass_rate = 100
+
 /////BARRICADE TYPES///////
 
 /obj/structure/barricade/better/sandbags
 	name = "sandbags"
 	desc = "Good barricade, but.."
 	icon = 'icons/Marine/barricades.dmi'
-	icon_state = "sandbag_0"
+	icon_state = "sandbag"
 	obj_integrity = 300
 	max_integrity = 300
 	proj_pass_rate = 20
@@ -81,3 +96,34 @@
 	material = SAND
 	climbable = TRUE
 	dirlike = TRUE
+	pixel_y = -2
+	layer = BELOW_OBJ_LAYER
+
+/obj/structure/barricade/better/sandbags/Initialize()
+	..()
+	update_icon()
+
+/obj/structure/barricade/setDir(newdir)
+	. = ..()
+	update_icon()
+
+/obj/structure/barricade/better/sandbags/update_icon()
+	. = ..()
+	switch(dir)
+		if(SOUTH)
+			layer = ABOVE_MOB_LAYER
+		if(NORTH)
+			layer = initial(layer) - 0.01
+		else
+			layer = initial(layer)
+
+/obj/structure/barricade/better/sandbags/attack_hand(mob/user)
+	. = ..()
+	if(.)
+		return
+	user.visible_message("<span class='notice'>[user] starts to take down [src]...</span>", "<span class='notice'>You start to take down [src]...</span>")
+	if(!has_buckled_mobs() && do_after(user, 80, target = src))
+		to_chat("<span class='notice'>You take down [src].</span>")
+		new /obj/item/stack/sheet/mineral/sandbags(src.loc)
+		qdel(src)
+		return

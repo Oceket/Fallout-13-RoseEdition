@@ -1,20 +1,51 @@
 /obj/item/components
-    name = "crafting items"
-    icon = 'icons/fallout/objects/items.dmi'
-    icon_state = "blueprint_empty"
-    w_class = WEIGHT_CLASS_TINY
+	name = "crafting items"
+	icon = 'icons/fallout/objects/items.dmi'
+	icon_state = "blueprint_empty"
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/blueprint
-    name = "crafting blueprint"
-    icon = 'icons/fallout/objects/items.dmi'
-    icon_state = "blueprint_empty"
-    w_class = WEIGHT_CLASS_TINY
+	name = "crafting blueprint"
+	icon = 'icons/fallout/objects/items.dmi'
+	icon_state = "blueprint_empty"
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/prefabs
-    name = "crafting prefabs"
-    icon = 'icons/fallout/objects/crafting.dmi'
-    icon_state = "blueprint_empty"
-    w_class = WEIGHT_CLASS_TINY
+	name = "crafting prefabs"
+	icon = 'icons/fallout/objects/crafting.dmi'
+	icon_state = "blueprint_empty"
+	w_class = WEIGHT_CLASS_TINY
+	var/list/tags = list()
+	var/list/incompatible_tags = list()
+	var/complexity = 10
+	var/part_type = "generic" //These are for ensuring you can always swap out similar parts even if item paths differ, mostly fixing barrels
+	var/mag_type
+	var/enables_automatic = FALSE
+	var/burst_mod = 0
+	var/dam_mod = 0
+	var/canpulloutmag = TRUE
+	var/armorpen_mod = 0
+	var/recoil_mod = 0
+	var/spread_mod = 0
+	var/burst_delay_mod = 0
+	var/bullet_speed_mod = 0
+	var/force_mod = 0
+	var/fire_delay_mod = 0
+	var/gun_weight_class = WEIGHT_CLASS_TINY //bulky, tiny, small. uses the highest weighted part
+	var/caliber_name = ""
+	var/frame_type = "pistol"
+	var/scope = FALSE
+
+	//energy weapons
+	var/energyAmmoType = null
+	var/energyProjType = null
+
+/obj/item/prefabs/examine(mob/user)
+	. = ..()
+	if(!complexity)
+		to_chat(user, "<span>This is a basic part.</span>")
+	else
+		to_chat(user, "<span>Part complexity: [complexity].</span>")
 
 /obj/item/stack/prefabs
     name = "crafting prefabs"
@@ -31,7 +62,6 @@
 /obj/item/blueprint/misc/stim
     name = "Stimpack blueprint"
     desc = "Stimpacks"
-
 
 /obj/item/blueprint/misc/superstims
     name = "Super Stimpack blueprint"
@@ -55,10 +85,10 @@
 	name = "Lever Action shotgun blueprint"
 
 /obj/item/blueprint/weapon/kar98
-	name = "Karabiner 98k blueprint"
+	name = "Ancient rifle blueprint"
 
 /obj/item/blueprint/weapon/kar98/limited
-	name = "Damaged Karabiner 98k blueprint"
+	name = "Damaged ancient rifle blueprint"
 
 //mid tier
 /obj/item/blueprint/weapon/thatgun
@@ -68,16 +98,16 @@
 	name = "Damaged .223 pistol blueprint"
 
 /obj/item/blueprint/weapon/pps
-	name = "PPSh-41 blueprint"
+	name = "Ancient SMG blueprint"
 
 /obj/item/blueprint/weapon/pps/limited
-	name = "Damaged PPSh-41 blueprint"
+	name = "Damaged ancient SMG blueprint"
 
 /obj/item/blueprint/weapon/mg34
-	name = "Maschinengewehr 34 blueprint"
+	name = "Ancient machine gun blueprint"
 
 /obj/item/blueprint/weapon/mg34/limited
-	name = "Damaged Maschinengewehr 34 blueprint"
+	name = "Damaged ancient machine gun blueprint"
 
 /obj/item/blueprint/weapon/marksmanrifle
 	name = "Marksman Rifle blueprint"
@@ -148,7 +178,7 @@
 
 /obj/item/blueprint/weapon/lmg
 	name = "LMG blueprint"
-	
+
 /obj/item/blueprint/weapon/lmg/limited
 	name = "Damaged LMG blueprint"
 
@@ -204,716 +234,36 @@
     icon = 'icons/fallout/objects/crafting.dmi'
     icon_state = "blueprint_empty"
     w_class = WEIGHT_CLASS_TINY
-
-/obj/item/stack/prefabs/mWeaponParts
-	name = "Metal Weapon Parts"
-	desc = ""
-	//icon_state = ""
-
-/obj/item/stack/prefabs/wWeaponParts
-	name = "Wooden Weapon Parts"
-	desc = ""
-	//icon_state = ""
-
-/obj/item/stack/prefabs/pWeaponParts
-	name = "Plastic Weapon Parts"
-	desc = ""
-	//icon_state = ""
-
-/obj/item/stack/prefabs/psWeaponParts
-	name = "Plasteel Weapon Parts"
-	desc = ""
-	//icon_state = ""
-
-/obj/item/prefabs/complex/simpleWeaponFrame
-
-	var/obj/item/prefabs/complex/action/simple/actionsimple
-	var/obj/item/prefabs/complex/action/auto/actionauto
-
-	var/obj/item/prefabs/complex/barrel/m556/m556barrel
-	var/obj/item/prefabs/complex/barrel/mm10/mm10barrel
-	var/obj/item/prefabs/complex/barrel/mm9/mm9barrel
-	var/obj/item/prefabs/complex/barrel/m357/m357barrel
-	var/obj/item/prefabs/complex/barrel/m44/m44barrel
-	var/obj/item/prefabs/complex/barrel/m45/m45barrel
-	var/obj/item/prefabs/complex/barrel/m762/m762barrel
-	var/obj/item/prefabs/complex/barrel/m4570/m4570barrel
-	var/obj/item/prefabs/complex/barrel/shotgun/shotgunbarrel
-
-	var/obj/item/prefabs/complex/trigger/trigger
-
-	var/obj/item/prefabs/complex/bolt/simple/boltsimple
-	var/obj/item/prefabs/complex/bolt/high/boltadvanced
-
-	var/obj/item/prefabs/complex/stock/mid/stockplastic
-	var/obj/item/prefabs/complex/stock/low/stockwood
-
-	var/obj/item/prefabs/complex/screw/screw
-
-	var/obj/item/advanced_crafting_components/alloys/alloys
-	var/obj/item/advanced_crafting_components/receiver/receiver
-	var/obj/item/advanced_crafting_components/assembly/assembly
-	name = "Simple Weapon Frame"
-	desc = ""
-	icon_state = "gunframe"
-
-/obj/item/prefabs/complex/simpleWeaponFrame/attackby(obj/item/W, mob/user, params)//todo me more recipes
-	if(istype(W, /obj/item/screwdriver))
-		if(src.contents.len > 0)			
-			to_chat(usr,"You remove the [src.contents[1]] from the [src].")
-			usr.transferItemToLoc(src.contents[1],usr.loc)
-		else
-			to_chat(usr,"The weapon frame does not contain anything.")
-	if(istype(W, /obj/item/wrench))
-		if (FALSE)
-			var/obj/item/gun/ballistic/gun = new /obj/item/gun/ballistic/automatic/pistol/n99(usr.loc)//some base gun idk
-			for(var/obj/item/prefabs/complex/F in src.contents)
-				if(istype(F,/obj/item/prefabs/complex/barrel))
-					gun.mag_type = F.mag_type
-				if(istype(F,/obj/item/prefabs/complex/action))
-					gun.burst_size = F.burst_size
-				//etc
-				//choose gun sound and model based on?(overall stats?, idk)
-				//gun.icon/item state = x
-	/*
-	
-	*/
-		else if(screw&&trigger&&boltsimple&&actionsimple&&mm10barrel)//10mm
-			if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/pistol/n99
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/mid)&&alloys)//gunslinger
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/pistol/n99/pers/gunslinger
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/mid)&&receiver)//glock
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/pistol/n99/pers/glock
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/mid)&&assembly)//long
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/pistol/n99/pers/long
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/pistol/n99/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/pistol/n99/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionsimple&&m357barrel)//357
-			if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/revolver/colt357
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionsimple&&m44barrel)//44
-			if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/revolver/m29
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionsimple&&m4570barrel)//hunting revolver
-			if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/revolver/sequoia/scoped
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/revolver/sequoia/scoped/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		/*	else if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/revolver/sequoia/scoped/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)*/
-		else if(screw&&trigger&&boltadvanced&&actionsimple&&m556barrel)//556 pistol
-			if(istype(src,/obj/item/prefabs/complex/simpleWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/revolver/thatgun
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else 
-			to_chat(usr,"This isn't quite right...")
-	if(istype(W, /obj/item/advanced_crafting_components/alloys))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		alloys = W
-	if(istype(W, /obj/item/advanced_crafting_components/receiver))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		receiver = W
-	if(istype(W, /obj/item/advanced_crafting_components/assembly))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		assembly = W
-	if(istype(W, /obj/item/prefabs/complex/action/simple))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		actionsimple = W
-	if(istype(W, /obj/item/prefabs/complex/action/auto))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		actionauto = W
-	if(istype(W, /obj/item/prefabs/complex/trigger))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		trigger = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m556))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m556barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/shotgun))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		shotgunbarrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/mm9))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		mm9barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/mm10))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		mm10barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m357))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m357barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m44))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m44barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m45))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m45barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m762))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m762barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m4570))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m4570barrel = W
-	if(istype(W, /obj/item/prefabs/complex/bolt/simple))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		boltsimple = W
-	if(istype(W, /obj/item/prefabs/complex/bolt/high))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		boltadvanced = W
-	if(istype(W, /obj/item/prefabs/complex/stock/mid))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		stockplastic = W
-	if(istype(W, /obj/item/prefabs/complex/stock/low))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		stockwood = W
-	if(istype(W, /obj/item/prefabs/complex/screw))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		screw = W
-
-/obj/item/prefabs/complex/complexWeaponFrame//todo me more recipes
-
-	var/obj/item/prefabs/complex/action/simple/actionsimple
-	var/obj/item/prefabs/complex/action/auto/actionauto
-
-	var/obj/item/prefabs/complex/barrel/m556/m556barrel
-	var/obj/item/prefabs/complex/barrel/mm10/mm10barrel
-	var/obj/item/prefabs/complex/barrel/m357/m357barrel
-	var/obj/item/prefabs/complex/barrel/mm9/mm9barrel
-	var/obj/item/prefabs/complex/barrel/m44/m44barrel
-	var/obj/item/prefabs/complex/barrel/m45/m45barrel
-	var/obj/item/prefabs/complex/barrel/m762/m762barrel
-	var/obj/item/prefabs/complex/barrel/m4570/m4570barrel
-	var/obj/item/prefabs/complex/barrel/shotgun/shotgunbarrel
-
-	var/obj/item/prefabs/complex/trigger/trigger
-
-	var/obj/item/prefabs/complex/bolt/simple/boltsimple
-	var/obj/item/prefabs/complex/bolt/high/boltadvanced
-
-	var/obj/item/prefabs/complex/stock/mid/stockplastic
-	var/obj/item/prefabs/complex/stock/low/stockwood
-	var/obj/item/prefabs/complex/screw/screw
-
-	var/obj/item/advanced_crafting_components/alloys/alloys
-	var/obj/item/advanced_crafting_components/receiver/receiver
-	var/obj/item/advanced_crafting_components/assembly/assembly
-	name = "Complex Weapon Frame"
-	desc = ""
-	icon_state = "gunframe"
-
-/obj/item/prefabs/complex/complexWeaponFrame/attackby(obj/item/W, mob/user, params)//todo me more recipes
-	if(istype(W, /obj/item/screwdriver))
-		if(src.contents.len > 0)			
-			to_chat(usr,"You remove the [src.contents[1]] from the [src].")
-			usr.transferItemToLoc(src.contents[1],usr.loc)
-		else
-			to_chat(usr,"The weapon frame does not contain anything.")
-	if(istype(W, /obj/item/wrench))
-		if(screw&&trigger&&boltsimple&&actionsimple&&m556barrel&&stockplastic)//service
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/marksman/servicerifle
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/marksman/servicerifle/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/marksman/servicerifle/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionsimple&&m556barrel&&stockwood)//varmint
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/marksman/servicerifle/varmint
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionsimple&&m44barrel&&stockwood)//trail carbine
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/shotgun/automatic/hunting/trail
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionsimple&&m4570barrel&&stockwood)//brush gun
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/shotgun/automatic/hunting/brush/scoped
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/shotgun/automatic/hunting/brush/scoped/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/shotgun/automatic/hunting/brush/scoped/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionauto&&mm9barrel&&stockwood&&receiver)//pps
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/pps
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/pps/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/pps/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionauto&&mm9barrel&&stockplastic&&receiver)//uzi
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/mini_uzi
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/mini_uzi/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/mini_uzi/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionauto&&mm10barrel&&stockplastic&&receiver)//10mmsmg
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/smg10mm
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/smg10mm/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/smg10mm/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltsimple&&actionauto&&m45barrel&&stockplastic&&receiver)//grease gun
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/greasegun
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/greasegun/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/greasegun/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-		else if(screw&&trigger&&boltadvanced&&actionsimple&&m762barrel&&stockplastic&&receiver&&assembly)//rangemaster
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/rangemaster/scoped
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/rangemaster/scoped/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			/*else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/rangemaster/scoped/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)*/
-		else if(screw&&trigger&&boltadvanced&&actionauto&&m556barrel&&stockplastic&&receiver&&assembly)//assault rifle
-			if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/low))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/assault_rifle
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/mid))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/assault_rifle/mid
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)
-			/*else if(istype(src,/obj/item/prefabs/complex/complexWeaponFrame/high))
-				var/obj/item/B = new /obj/item/gun/ballistic/automatic/assault_rifle/high
-				B.forceMove(usr.loc)
-				to_chat(usr,"You make a [B]")
-				qdel(src)*/
-		else
-			to_chat(usr,"This isn't quite right...")
-	if(istype(W, /obj/item/advanced_crafting_components/alloys))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		alloys = W
-	if(istype(W, /obj/item/advanced_crafting_components/receiver))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		receiver = W
-	if(istype(W, /obj/item/advanced_crafting_components/assembly))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		assembly = W
-	if(istype(W, /obj/item/prefabs/complex/action/simple))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		actionsimple = W
-	if(istype(W, /obj/item/prefabs/complex/action/auto))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		actionauto = W
-	if(istype(W, /obj/item/prefabs/complex/trigger))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		trigger = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/shotgun))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		shotgunbarrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m556))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m556barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/mm10))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		mm10barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/mm9))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		mm9barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m357))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m357barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m44))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m44barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m45))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m45barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m762))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m762barrel = W
-	if(istype(W, /obj/item/prefabs/complex/barrel/m4570))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		m4570barrel = W
-	if(istype(W, /obj/item/prefabs/complex/bolt/simple))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		boltsimple = W
-	if(istype(W, /obj/item/prefabs/complex/bolt/high))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		boltadvanced = W
-	if(istype(W, /obj/item/prefabs/complex/stock/mid))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		stockplastic = W
-	if(istype(W, /obj/item/prefabs/complex/stock/low))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		stockwood = W
-	if(istype(W, /obj/item/prefabs/complex/screw))
-		usr.transferItemToLoc(W,src)
-		to_chat(usr,"You install the [W] into the [src]")
-		screw = W
-
-/obj/item/prefabs/complex/simpleWeaponFrame/low
-	name = "Simple Weapon Frame (standard)"
-	desc = ""
-	icon_state = "gunframe"
-
-/obj/item/prefabs/complex/complexWeaponFrame/low
-	name = "Complex Weapon Frame (standard)"
-	desc = ""
-	icon_state = "gunframe"
-
-/obj/item/prefabs/complex/simpleWeaponFrame/mid
-	name = "Simple Weapon Frame (improved)"
-	desc = ""
-	//icon_state = ""
-
-/obj/item/prefabs/complex/complexWeaponFrame/mid
-	name = "Complex Weapon Frame (improved)"
-	desc = ""
-	//icon_state = ""
-
-/obj/item/prefabs/complex/simpleWeaponFrame/high
-	name = "Simple Weapon Frame (masterwork)"
-	desc = ""
-	//icon_state = ""
-
-/obj/item/prefabs/complex/complexWeaponFrame/high
-	name = "Complex Weapon Frame (masterwork)"
-	desc = ""
-	//icon_state = ""
-
-//moulds
-
-/obj/item/prefabs/mould
-	name = "Mould"
-	desc = ""
-	icon_state = "mould"
-
-/obj/item/prefabs/mould/action/simple
-	name = "Simple Action Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/action/auto
-	name = "Automatic Action Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/barrel/shotgun
-	name = "Shotgun Barrel Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/barrel/m357
-	name = ".357 Barrel Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/barrel/mm10
-	name = "10mm Barrel Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/barrel/mm9
-	name = "9mm Barrel Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/barrel/m44
-	name = ".44 Barrel Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/barrel/m45
-	name = ".45 Barrel Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/barrel/m4570
-	name = ".45-70 Barrel Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/barrel/m556
-	name = "556 Barrel Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/barrel/m762
-	name = "762 Barrel Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/bolt/simple
-	name = "Simple Bolt Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/bolt/high
-	name = "Advanced Bolt Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/trigger
-	name = "Trigger Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/stock
-	name = "Stock Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/screw
-	name = "Screw Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/simpleWeaponFrame
-	name = "Simple Weapon Frame Mould"
-	desc = ""
-
-/obj/item/prefabs/mould/complexWeaponFrame
-	name = "Complex Weapon Frame Mould"
-	desc = ""
-
-//components
-/obj/item/prefabs/complex
-	var/burst_size = 1
-	var/mag_type = null
-
-/obj/item/prefabs/complex/action/simple
-	name = "Simple Action"
-	desc = ""
-	icon_state = "action"
-
-/obj/item/prefabs/complex/action/auto
-	name = "Automatic Action"
-	desc = ""
-	icon_state = "action"
-	burst_size = 2
-
-/obj/item/prefabs/complex/barrel
-	name = "Barrel"
-	desc = ""
-	icon_state = "barrel"
-
-/obj/item/prefabs/complex/barrel/shotgun
-	name = "Shotgun Barrel"
-	desc = ""
-	icon_state = "barrel"
-
-/obj/item/prefabs/complex/barrel/mm10
-	name = "10mm Barrel"
-	desc = ""
-	icon_state = "barrel"
-	mag_type = /obj/item/ammo_box/magazine/m10mm_auto
-
-/obj/item/prefabs/complex/barrel/mm9
-	name = "9mm Barrel"
-	desc = ""
-	icon_state = "barrel"
-
-/obj/item/prefabs/complex/barrel/m357
-	name = ".357 Barrel"
-	desc = ""
-
-/obj/item/prefabs/complex/barrel/m44
-	name = ".44 Barrel"
-	desc = ""
-
-/obj/item/prefabs/complex/barrel/m45
-	name = ".45 Barrel"
-	desc = ""
-
-/obj/item/prefabs/complex/barrel/m4570
-	name = ".45-70 Barrel"
-	desc = ""
-
-/obj/item/prefabs/complex/barrel/m556
-	name = "556 Barrel"
-	desc = ""
-
-/obj/item/prefabs/complex/barrel/m762
-	name = "762 Barrel"
-	desc = ""
-
-/obj/item/prefabs/complex/bolt
-	name = "Bolt"
-	desc = ""
-	icon_state = "bolt"
-
-/obj/item/prefabs/complex/bolt/simple
-	name = "Simple Bolt"
-	desc = ""
-	icon_state = "bolt"
-
-/obj/item/prefabs/complex/bolt/high
-	name = "Advanced Bolt"
-	desc = ""
-
-/obj/item/prefabs/complex/trigger
-	name = "Trigger"
-	desc = ""
-	icon_state = "trigger"
-
-/obj/item/prefabs/complex/stock
-	name = "Stock"
-	desc = ""
-	icon_state = "stockwood"
-
-/obj/item/prefabs/complex/stock/low
-	name = "Wooden Stock"
-	desc = ""
-	icon_state = "stockwood"
-
-/obj/item/prefabs/complex/stock/mid
-	name = "Plastic Stock"
-	desc = ""
-	icon_state = "stock"
+    var/complexity = 0
+
+/obj/item/advanced_crafting_components/examine(mob/user)
+	. = ..()
+	if(complexity)
+		to_chat(user, "<span>Part complexity: [complexity]</span>")
+	else
+		to_chat(user, "<span>This is a basic part.</span>")
 
 /obj/item/prefabs/complex/screw
 	name = "Screw"
 	desc = ""
 	icon_state = "screw"
+	complexity = 10
+	part_type = "screw"
 
-//plasma
-/obj/item/advanced_crafting_components/flux
-	name = "Flux capacitator"
-	desc = "An energy weapon part, a craftsman might want to have this."
-	icon_state = "flux"
+/obj/item/prefabs/complex/gunframe
+	name = "frame"
+	part_type = "frame"
+	icon_state = "rifleframe"
+	var/gun_type = ""
+	var/needs_stock = FALSE
 
-//lasers
-/obj/item/advanced_crafting_components/lenses
-	name = "Focused crystal lenses"
-	desc = "An energy weapon part, a craftsman might want to have this."
-	icon_state = "lenses"
+/obj/item/prefabs/complex/loot
+	name = "Ruined Pre-War Assembly"
+	desc = "You might be able to salvage this using an advanced workbench, a gunsmith might get better results..."
+	icon_state = "advancedframe"
 
-//general energy
-/obj/item/advanced_crafting_components/conductors
-	name = "Superconductor coil"
-	desc = "An energy weapon part, a craftsman might want to have this."
-	icon_state = "conductor"
+/obj/item/prefabs/complex/loot/energy
+	name = "Ruined Pre-War Energy Assembly"
 
 //general ballistics
 /obj/item/advanced_crafting_components/receiver
@@ -921,40 +271,17 @@
 	desc = "A ballistic weapon part, a craftsman might want to have this."
 	icon_state = "receiver"
 
-//rifles
-/obj/item/advanced_crafting_components/assembly
-	name = "Pre-war weapon assembly"
-	desc = "A ballistic weapon part, a craftsman might want to have this."
-	icon_state = "weapon_parts_1"
-
 //general
 /obj/item/advanced_crafting_components/alloys
-	name = "Superlight alloys"
+	name = "Light alloys"
 	desc = "A general crafting part, a craftsman might want to have this."
 	icon_state = "alloys"
+	complexity = 30
+	var/slowdown_multiply = 0.5
 
-/obj/item/attachments
-    name = "attachment"
-    icon = 'icons/fallout/objects/crafting.dmi'
-    icon_state = "alloys"
-    w_class = WEIGHT_CLASS_TINY
 
-/obj/item/attachments/scope
-	name = "Weapon Optics"
-	desc = "A long-range scope, attach to a compatible weapon. Remove with a screwdriver. Makes the weapon slightly slower to fire."
-	icon_state = "scope"
-
-/obj/item/attachments/recoil_decrease
-	name = "Recoil Compensator"
-	desc = "Improves stability and recoil, attach to a compatible weapon. Cannot be removed."
-	icon_state = "recoilcomp"
-
-/obj/item/attachments/bullet_speed
-	name = "Improved Barrel"
-	desc = "Improves bullet speed, attach to a compatible weapon. Cannot be removed."
-	icon_state = "barrel"
-
-/obj/item/attachments/burst_improvement
-	name = "Burst Cam"
-	desc = "Increases burst size, attach to a compatible weapon. Cannot be removed."
-	icon_state = "burstcam"
+/obj/item/advanced_crafting_components/alloys/advanced
+	name = "Superlight alloys"
+	icon_state = "alloys_super"
+	complexity = 40
+	slowdown_multiply = 0.2

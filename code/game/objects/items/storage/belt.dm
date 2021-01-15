@@ -33,6 +33,69 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	content_overlays = TRUE
+	
+/obj/item/storage/belt/waistsheath
+	name = "sword sheath"
+	desc = "A utility belt that allows a sword to be held at the hip at the cost of storage space."
+	icon_state = "sheathwaist"
+	item_state = "sheathwaist"
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/storage/belt/waistsheath/ComponentInitialize()
+	. = ..()
+	GET_COMPONENT(STR, /datum/component/storage)
+	STR.max_items = 2
+	STR.rustle_sound = FALSE
+	STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.can_hold = typecacheof(list(
+		/obj/item/storage/belt/waistsheathstorage,
+		/obj/item/claymore,
+		/obj/item/katana
+		))
+
+/obj/item/storage/belt/waistsheath/examine(mob/user)
+	..()
+	if(length(contents))
+		to_chat(user, "<span class='notice'>Alt-click it to quickly draw the blade.</span>")
+
+/obj/item/storage/belt/waistsheath/AltClick(mob/user)
+	if(!iscarbon(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		return
+	if(length(contents))
+		var/obj/item/I = contents[2]
+		user.visible_message("[user] takes [I] out of [src].", "<span class='notice'>You take [I] out of [src].</span>")
+		user.put_in_hands(I)
+		update_icon()
+	else
+		to_chat(user, "[src] is empty.")
+
+/obj/item/storage/belt/waistsheath/update_icon()
+	icon_state = "sheathwaist"
+	item_state = "sheathwaist"
+	if(contents.len == 2)
+		icon_state += "-full"
+		item_state += "-full"
+	if(loc && isliving(loc))
+		var/mob/living/L = loc
+		L.regenerate_icons()
+	..()
+
+/obj/item/storage/belt/waistsheath/PopulateContents()
+	new /obj/item/storage/belt/waistsheathstorage(src)
+	update_icon()
+
+/obj/item/storage/belt/waistsheathstorage
+	name = "open inventory"
+	desc = "Open your belt's inventory"
+	icon_state = "open"
+	anchored = 1
+
+/obj/item/storage/belt/waistsheathstorage/ComponentInitialize()
+	. = ..()
+	GET_COMPONENT(STR, /datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
+	STR.max_items = 5
+	STR.clickopen = TRUE
 
 /obj/item/storage/belt/utility/ComponentInitialize()
 	. = ..()
@@ -414,6 +477,15 @@
 	GET_COMPONENT(STR, /datum/component/storage)
 	STR.max_items = 7
 
+/obj/item/storage/belt/military/followers/PopulateContents()
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/melee/classic_baton(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/ammo_box/magazine/m9mmds(src)
+	update_icon()
+
+
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
 	desc = "A belt for holding grenades."
@@ -531,6 +603,55 @@
 		/obj/item/ammo_casing
 		))
 
+/obj/item/storage/belt/bandolier/shotgun
+	name = "shotgun bandolier"
+	desc = "A bandolier for holding shotgun ammunition."
+	icon_state = "bandolier"
+	item_state = "bandolier"
+
+
+/obj/item/storage/belt/bandolier/shotgun/ComponentInitialize()
+	. = ..()
+	GET_COMPONENT(STR, /datum/component/storage)
+	STR.max_items = 42
+	STR.display_numerical_stacking = TRUE
+	STR.can_hold = typecacheof(list(
+		/obj/item/ammo_casing/shotgun
+		))
+
+
+/obj/item/storage/belt/bandolier/shotgun/attackby(obj/item/A, mob/user, params, silent = FALSE, replace_spent = 0)
+	if(istype(A, /obj/item/gun))
+		A.attackby(src, user)
+	else
+		var/num_loaded = 0
+		if (is_type_in_list(A, list(/obj/item/storage/box/rubbershot/beanbag,
+		 							 /obj/item/storage/box/lethalshot,
+									 /obj/item/storage/box/magnumshot,
+									 /obj/item/storage/box/slugshot,
+									 /obj/item/storage/box/beanbag)))
+			GET_COMPONENT(STR, /datum/component/storage)
+			var/obj/item/storage/box/AM = A
+			for(var/obj/item/ammo_casing/shotgun/AC in AM.contents)
+				if (!STR.can_be_inserted(AC, TRUE, user))
+					break
+				user.transferItemToLoc(AC, src, TRUE)
+				num_loaded++
+		if(istype(A, /obj/item/ammo_casing/shotgun))
+			GET_COMPONENT(STR, /datum/component/storage)
+			var/obj/item/ammo_casing/shotgun/AC = A
+			if (STR.can_be_inserted(AC, TRUE, user))
+				user.transferItemToLoc(AC, src, TRUE)
+				num_loaded++
+		if(num_loaded)
+			if(!silent)
+				to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+				playsound(src, 'sound/weapons/shotguninsert.ogg', 60, 1)
+			A.update_icon()
+			update_icon()
+		. = ..()
+
+
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
 	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
@@ -557,7 +678,12 @@
 		/obj/item/gun/energy/laser/wattz,
 		/obj/item/gun/energy/laser/wattz/magneto,
 		/obj/item/gun/energy/laser/plasma/alien,
-		/obj/item/stock_parts/cell/ammo/ec
+		/obj/item/stock_parts/cell/ammo/ec,
+		/obj/item/stock_parts/cell/ammo/ecp,
+		/obj/item/stock_parts/cell/ammo/mfc,
+		/obj/item/gun/energy/ionrifle/carbine,
+		/obj/item/gun/energy/decloner,
+		/obj/item/gun/energy/floragun
 		))
 
 /obj/item/storage/belt/holster/full/PopulateContents()

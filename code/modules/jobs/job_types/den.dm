@@ -34,7 +34,7 @@ Mayor
 	..()
 	if(visualsOnly)
 		return
-	H.add_trait(TRAIT_TECHNOPHREAK)
+	H.add_trait(TRAIT_TECHNOPHREAK, TRAIT_GENERIC)
 
 /datum/outfit/job/den/f13mayor
 	name = "Mayor"
@@ -251,7 +251,7 @@ Mayor
 	..()
 	if(visualsOnly)
 		return
-	H.add_trait(TRAIT_TECHNOPHREAK)
+	H.add_trait(TRAIT_TECHNOPHREAK, TRAIT_GENERIC)
 
 /*--------------------------------------------------------------*/
 
@@ -290,6 +290,7 @@ Mayor
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak=2, \
 		/obj/item/storage/firstaid/regular,
+		/obj/item/book/granter/trait/field_surgery,
 		/obj/item/clothing/accessory/armband/medblue  \
 		)
 
@@ -740,7 +741,7 @@ Detective
 	..()
 	if(visualsOnly)
 		return
-	H.add_trait(TRAIT_TECHNOPHREAK)
+	H.add_trait(TRAIT_TECHNOPHREAK, TRAIT_GENERIC)
 
 /datum/job/den/f13shopkeeper/after_spawn(mob/living/carbon/human/H, mob/M)
 	H.add_quirk("Master Gunsmith")

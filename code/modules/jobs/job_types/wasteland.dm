@@ -54,8 +54,8 @@ Great Khan
 	faction = "Raider"
 	total_positions = 6
 	spawn_positions = 6
-	description = "You are no common raider or tribal settler, for you are a Great Khan. Your ancestry is that of fierce warriors and noble chieftans, whose rites and sagas tell of blood soaked battlefields and great sacrifice for your tribe. At least, this was once the case: after the massacre at Bitter Springs by the NCR, your people have lost much of their strength - now you and many other Khans travel west of Vegas through Red Rock Canyon in the hopes of settling in the region of Yuma."
-	supervisors = "your gang leadership"
+	description = "Вы не обычный рейдер или дикарь с пустоши, вы - Великий Хан! Ваши предки свирепые и благородные воины и вожди, в честь которых были сложены легенды и песни вашим племенем. Их подвиги рассказывают о пропитанных кровью полях сражений, и их великих жертвах ради будущего всего племени. После изгнания из Вегаса, ханы разбрелись по пустошам, в поисках места, который они могли бы назвать домом. Данный пункт - отличный перевалочный пункт, с которого вы можете начать строить свою империю. В регионе присутствует НКР, но прошло уже более века с той поры, как Выходец из Убежища перебил наших предков. Стоит ли продолжать это бессмысленое сражение, или же стоит укрепить свою наркотическую империю?."
+	supervisors = "Главарь банды"
 	selection_color = "#ff915e"
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
@@ -284,8 +284,7 @@ Raider
 		/obj/item/ammo_box/m44 = 2,
 		/obj/item/clothing/mask/gas/explorer/folded=1,
 		/obj/item/storage/belt/tribe_quiver = 1,
-		/obj/item/twohanded/spear = 1,
-		/obj/item/skub = 1)
+		/obj/item/twohanded/spear = 1)
 
 /datum/outfit/loadout/raider_badlands
 	name = "Badlands"
@@ -315,6 +314,7 @@ Raider
 	suit = /obj/item/clothing/suit/armor/f13/exile/bosexile
 	uniform = /obj/item/clothing/under/syndicate
 	id = /obj/item/card/id/rusted/brokenholodog
+	belt = /obj/item/stealthboy/makeshift
 	backpack_contents = list(
 		/obj/item/gun/energy/laser/pistol=1,
 		/obj/item/stock_parts/cell/ammo/ec=2)
@@ -369,6 +369,8 @@ Raider
 	backpack_contents = list(
 		/obj/item/gun/ballistic/automatic/pistol/n99=1,
 		/obj/item/ammo_box/magazine/m10mm_adv=3)
+
+/obj/item/stealthboy/makeshift
 
 /datum/job/wasteland/f13wastelander
 	title = "Wastelander"
@@ -520,3 +522,70 @@ Raider
 	l_hand = /obj/item/gun/ballistic/automatic/marksman/servicerifle/varmint
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle/small=2)
+
+//////////////////////////////////Locust Mercenaries////////////////////
+/*
+/datum/job/wasteland/f13locustcaptain
+	title = "Locust Captain"
+	flag = F13LOCUSTCAPTAIN
+	head_announce = list("Security")
+	faction = "Neutral"
+	total_positions = 1
+	spawn_positions = 1
+	description = "You are the Captain of the Locust Mercenary Outfit of Yuma. Your job is to grab contracts and tear down anyone in your path to get the mission done"
+	supervisors = "Colonel"
+	req_admin_notify = 1
+	outfit = /datum/outfit/job/wasteland/f13locustcaptain
+
+/datum/outfit/job/wasteland/f13locustcaptain
+	name = "Locust Captain"
+	jobtype 	= /datum/job/wasteland/f13locustcaptain
+	uniform		= /obj/item/clothing/under/f13/locust
+	accessory 	= /obj/item/clothing/accessory/ncr/CPT
+	suit 		= /obj/item/clothing/suit/armor/locustjacket
+	suit_store 	= /obj/item/gun/ballistic/automatic/pistol/ninemil
+	glasses 	= /obj/item/clothing/glasses/sunglasses/big
+	shoes       = /obj/item/clothing/shoes/combat/swat
+	neck = 		/obj/item/storage/belt/holster
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/m9mm=2, \
+		/obj/item/kitchen/knife/combat=1, \
+		/obj/item/melee/classic_baton/telescopic=1, \
+		/obj/item/twohanded/binocs=1)
+
+/datum/job/wasteland/f13locustcaptain/after_spawn(mob/living/carbon/human/H, mob/M)
+	H.add_quirk("Hard Yards")
+	H.add_quirk("Lifegiver")
+	H.add_quirk("Self-Aware")
+
+/datum/job/wasteland/f13locust
+	title = "Locust Private"
+	flag = F13LOCUST
+	head_announce = list("Security")
+	faction = "Neutral"
+	total_positions = 5
+	spawn_positions = 5
+	description = "You are part of the Locust Mercenary Outfit of Yuma. Your job is to grab contracts and tear down anyone in your path to get the mission done"
+	supervisors = "Captain"
+	req_admin_notify = 1
+	outfit = /datum/outfit/job/wasteland/f13locust
+
+/datum/outfit/job/wasteland/f13locust
+	name = "Locust Private"
+	jobtype 	= /datum/job/wasteland/f13locust
+	uniform		= /obj/item/clothing/under/f13/locust
+	suit 		= /obj/item/clothing/suit/armor/locustjacket
+	suit_store 	= /obj/item/gun/ballistic/automatic/pistol/ninemil
+	glasses 	= /obj/item/clothing/glasses/sunglasses/big
+	shoes       = /obj/item/clothing/shoes/combat/swat
+	neck = 		/obj/item/storage/belt/holster
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/m9mm=2, \
+		/obj/item/kitchen/knife/combat=1, \
+		/obj/item/melee/classic_baton/telescopic=1, \
+		/obj/item/twohanded/binocs=1)
+
+/datum/job/wasteland/f13locustcaptain/after_spawn(mob/living/carbon/human/H, mob/M)
+	H.add_quirk("Hard Yards")
+	H.add_quirk("Self-Aware")
+*/

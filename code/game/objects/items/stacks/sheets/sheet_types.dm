@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("shelf parts", /obj/item/rack_parts), \
 	new/datum/stack_recipe("closet", /obj/structure/closet, 2, time = 15, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("trash bin", /obj/structure/closet/crate/bin, 2, time = 15, one_per_turf = TRUE, on_floor = TRUE), \
 	null, \
 	new/datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister, 10, time = 15, one_per_turf = TRUE, on_floor = TRUE), \
 	null, \
@@ -96,7 +97,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("iron door", /obj/structure/simple_door/metal/store, 10, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("lock", /obj/item/lock_construct, 1), \
 	new/datum/stack_recipe("key", /obj/item/key, 1), \
-	new/datum/stack_recipe("key chain", /obj/item/storage/keys_set, 1), \
+	new/datum/stack_recipe("key chain", /obj/item/storage/keys_chain, 1), \
 	new/datum/stack_recipe("metal parts", /obj/item/stack/crafting/metalparts, 5), \
 	null, \
 	new /datum/stack_recipe_list("racks", list( \
@@ -238,6 +239,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	new/datum/stack_recipe("wooden bench", /obj/structure/chair/bench, 4, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("winged wooden chair", /obj/structure/chair/wood/wings, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("strong wooden barricade", /obj/structure/barricade/wooden/strong, 10, time = 75, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("wooden door", /obj/structure/simple_door/wood, 10, time = 20, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("coffin", /obj/structure/closet/crate/coffin, 5, time = 15, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("book case", /obj/structure/bookcase, 4, time = 15, one_per_turf = TRUE, on_floor = TRUE), \
@@ -661,6 +663,13 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	throw_range = 3
 	grind_results = list("carbon" = 10)
 	merge_type = /obj/item/stack/sheet/bone
+
+GLOBAL_LIST_INIT(bone_recipes, list(
+	new /datum/stack_recipe("Bone Throne", /obj/structure/chair/throne, 10, one_per_turf = TRUE, on_floor = TRUE, time = 40)))
+
+/obj/item/stack/sheet/bone/Initialize(maplosad, new_amount, merge = TRUE)
+	recipes = GLOB.bone_recipes
+	. = ..()
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = TRUE, on_floor = TRUE, time = 40), \

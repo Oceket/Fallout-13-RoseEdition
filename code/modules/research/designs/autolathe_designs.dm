@@ -18,6 +18,14 @@
 	build_path = /obj/item/flashlight
 	category = list("initial","Tools")
 
+/datum/design/rpd
+	name = "Emergency Flare"
+	id = "remergency_flare"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 300)
+	build_path = /obj/item/flashlight/flare/emergency
+	category = list("hacked", "Construction")
+
 /datum/design/extinguisher
 	name = "Fire Extinguisher"
 	id = "extinguisher"
@@ -823,6 +831,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 50000)
 	build_path = /obj/item/ammo_box/a50MG/incendiary
+	category = list("initial", "Security")
+	
+/datum/design/m2mm
+	name = "2mm Electromagnetic Magazine"
+	id = "m2mm"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50000)
+	build_path = /obj/item/ammo_box/magazine/m2mm
 	category = list("initial", "Security")
 
 /*

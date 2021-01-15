@@ -16,9 +16,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 	desc = "The RobCo Pip-Boy (Personal Information Processor) is an electronic device. Functionality is determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
-	item_state = "Pip-boy"
+	item_state = "pip-boy"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	actions_types = list(/datum/action/item_action/toggle_light/pda)
+	alternate_worn_layer = BELT_LAYER
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_GLOVES | ITEM_SLOT_ID
@@ -26,6 +28,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_range = 2.3
+	light_power = 0.6
+	light_color = "#FFCC66"
+	light_on = FALSE
 
 	//Main variables
 	var/owner = null // String name of owner
@@ -48,8 +55,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	//Secondary variables
 	var/scanmode = PDA_SCANNER_NONE
-	var/fon = FALSE //Is the flashlight function on?
-	var/f_lum = 2.3 //Luminosity for the flashlight function
 	var/silent = FALSE //To beep or not to beep, that is the question
 	var/toff = FALSE //If TRUE, messenger disabled
 	var/tnote = null //Current Texts
@@ -102,8 +107,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Initialize()
 	. = ..()
-	if(fon)
-		set_light(f_lum)
 
 	GLOB.PDAs += src
 	if(default_cartridge)
@@ -149,6 +152,28 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/GetID()
 	return id
 
+
+/obj/item/pda/proc/toggle_light()
+	if(issilicon(usr) || !usr.canUseTopic(src, BE_CLOSE))
+		return
+	if(light_on)
+		set_light_on(FALSE)
+	else if(light_range)
+		set_light_on(TRUE)
+	update_icon()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+
+/obj/item/pda/verb/verb_toggle_light()
+	set name = "Toggle Light"
+	set category = "Object"
+	set src in usr
+
+	toggle_light()
+
+
 /obj/item/pda/update_icon()
 	cut_overlays()
 	var/mutable_appearance/overlay = new()
@@ -159,7 +184,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(inserted_item)
 		overlay.icon_state = "insert_overlay"
 		add_overlay(new /mutable_appearance(overlay))
-	if(fon)
+	if(light_on)
 		overlay.icon_state = "light_overlay"
 		add_overlay(new /mutable_appearance(overlay))
 	if(pai)
@@ -283,7 +308,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 					if (cartridge.access & CART_DRONEPHONE)
 						dat += "<li><a href='byond://?src=[REF(src)];choice=Drone Phone'>[PDAIMG(dronephone)]Drone Phone</a></li>"
 				dat += "<li><a href='byond://?src=[REF(src)];choice=3'>[PDAIMG(atmos)]Atmospheric Scan</a></li>"
-				dat += "<li><a href='byond://?src=[REF(src)];choice=Light'>[PDAIMG(flashlight)][fon ? "Disable" : "Enable"] Flashlight</a></li>"
+				dat += "<li><a href='byond://?src=[REF(src)];choice=Light'>[PDAIMG(flashlight)][light_on ? "Disable" : "Enable"] Flashlight</a></li>"
 				if (pai)
 					if(pai.loc != src)
 						pai = null
@@ -452,15 +477,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 //MAIN FUNCTIONS===================================
 
 			if("Light")
-				if(issilicon(usr) || !usr.canUseTopic(src, BE_CLOSE))
-					return
-				if(fon)
-					fon = FALSE
-					set_light(0)
-				else if(f_lum)
-					fon = TRUE
-					set_light(f_lum)
-				update_icon()
+				toggle_light()
 			if("Medical Scan")
 				if(scanmode == PDA_SCANNER_MEDICAL)
 					scanmode = PDA_SCANNER_NONE

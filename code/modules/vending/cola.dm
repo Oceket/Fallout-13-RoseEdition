@@ -1,3 +1,11 @@
+/obj/machinery/vending/cola/snow_act()
+	..()
+	add_overlay(image('icons/obj/f13vending.dmi', "[icon_state]_snow"))
+
+/obj/machinery/vending/cola/heat_act()
+	..()
+	cut_overlay(image('icons/obj/f13vending.dmi', "[icon_state]_snow"))
+
 /obj/machinery/vending/cola
 	name = "\improper Nuka-Cola Vending Machine"
 	icon = 'icons/obj/f13vending.dmi'
@@ -8,6 +16,7 @@
 	contraband = list(/obj/item/reagent_containers/food/drinks/bottle/f13nukacola = 4)
 	premium = list(/obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola = 1) //REAl nuka cola
 	refill_canister = /obj/item/vending_refill/cola
+
 
 /obj/item/vending_refill/cola
 	machine_name = "Soda Vending Machine"

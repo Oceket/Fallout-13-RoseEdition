@@ -12,7 +12,8 @@
 				CAT_FOOD,
 				CAT_CLOTHING,
 				CAT_BLUEPRINTS,
-				CAT_MOULD)
+				CAT_MOULD,
+				CAT_EXPERIMENTAL)
 	var/list/subcategories = list(
 						list(	//Weapon subcategories
 							CAT_WEAPON,
@@ -60,6 +61,7 @@
 							CAT_SHOES,
 							CAT_MISCCLOTHING,
 							CAT_ARMOR,
+							CAT_HULKY,
 							CAT_WASTELAND,
 							CAT_BELTS),
 						list( //bp
@@ -67,8 +69,14 @@
 							CAT_BPWEAPON_ONEUSE,
 							CAT_BP_COPY),
 						list( //moulds
-							CAT_MOULD_ONE)
-							)
+							CAT_MOULD_ACTION,
+							CAT_MOULD_FRAME,
+							CAT_MOULD_LOADER,
+							CAT_MOULD_BARREL,
+							CAT_MOULD_MISC),
+						list(CAT_WEAPONS,
+							CAT_UNREFIENED,
+							CAT_DEPLETED))
 
 	var/datum/action/innate/crafting/button
 	var/display_craftable_only = FALSE
@@ -153,6 +161,15 @@
 			.["other"][I.type] += 1
 		else
 			.["other"][I.type] += 1
+	for(var/obj/structure/I in get_environment(user))
+		if(I.flags_1 & HOLOGRAM_1)
+			continue
+		else if(I.machine_tool_behaviour)
+			.["tool_behaviour"] += I.machine_tool_behaviour
+			.["other"][I.type] += 1
+		else
+			.["other"][I.type] += 1
+	
 
 /datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
 	if(!R.tools.len)
@@ -190,7 +207,7 @@
 	var/send_feedback = 1
 	if(check_contents(R, contents))
 		if(check_tools(user, R, contents))
-			if(do_after(user, R.time, target = user))
+			if(do_after(user, scale_a_i(R.time, user), target = user))
 				contents = get_surroundings(user)
 				if(!check_contents(R, contents))
 					return ", missing component."

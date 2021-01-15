@@ -16,6 +16,14 @@
 	var/S3
 	var/S4
 
+/obj/structure/car/snow_act()
+	snow = TRUE
+	icon_state = "[initial(icon_state)]_snow"
+
+/obj/structure/car/heat_act()
+	snow = FALSE
+	icon_state = initial(icon_state)
+
 /obj/structure/car/New()
 	..()
 

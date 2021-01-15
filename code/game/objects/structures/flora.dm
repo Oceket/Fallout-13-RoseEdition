@@ -3,6 +3,18 @@
 	max_integrity = 150
 	anchored = TRUE
 
+/obj/structure/flora/Destroy()
+	var/turf = get_turf(src)
+	if(istype(turf, /turf/open/indestructible/ground))
+		var/turf/open/indestructible/ground/g = turf
+		g.turfPlant = null
+	else if(istype(turf, /turf/open/floor/plating/f13/outside/desert))
+		var/turf/open/floor/plating/f13/outside/desert/d = turf
+		d.turfPlant = null
+	
+	return ..()
+	
+
 //trees
 /obj/structure/flora/tree
 	name = "tree"
@@ -11,13 +23,15 @@
 	pixel_x = -16
 	layer = FLY_LAYER
 	var/log_amount = 9
+	var/busy = FALSE
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
 	if(log_amount && (!(flags_1 & NODECONSTRUCT_1)))
-		if(W.sharpness && W.force > 0 && W.tool_behaviour != TOOL_SHOVEL)
-			playsound(get_turf(src), 'sound/effects/wood_cutting.ogg', 100, 0, 0)
+		if(W.sharpness && W.force > 0 && W.tool_behaviour != TOOL_SHOVEL && !busy)
+			busy = TRUE
 			user.visible_message("<span class='notice'>[user] begins to cut down [src] with [W].</span>","<span class='notice'>You begin to cut down [src] with [W].</span>", "You hear the sound of sawing.")
-			if(do_after(user, 1000/W.force, target = src)) //5 seconds with 20 force, 8 seconds with a hatchet, 20 seconds with a shard.
+			playsound(get_turf(src), 'sound/effects/wood_cutting.ogg', 100, 0, 0)
+			if(do_after(user, 1000/W.force, TRUE, src)) //5 seconds with 20 force, 8 seconds with a hatchet, 20 seconds with a shard.
 				user.visible_message("<span class='notice'>[user] fells [src] with the [W].</span>","<span class='notice'>You fell [src] with the [W].</span>", "You hear the sound of a tree falling.")
 				playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100 , 0, 0)
 				for(var/i=1 to log_amount)
@@ -26,6 +40,10 @@
 				var/obj/structure/flora/stump/S = new(loc)
 				S.name = "[name] stump"
 				qdel(src)
+			else
+				busy = FALSE
+		else
+			user.show_message("Someone is cutting it already.")
 	else
 		return ..()
 
@@ -482,3 +500,15 @@
 /obj/structure/flora/rock/pile/largejungle/Initialize()
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,3)]"
+
+/obj/structure/pondlily_small
+	name = "lily pad"
+	icon = 'icons/obj/flora/plants.dmi'
+	icon_state = "pondlily_small"
+	desc = "A small lily pad with a single purple lily flower in the middle."
+
+/obj/structure/pondlily_big
+	name = "Large lily pad"
+	icon = 'icons/obj/flora/plants.dmi'
+	icon_state = "pondlily_big"
+	desc = "A large lily pad with a single purple lily flower in full bloom that rests in the middle."

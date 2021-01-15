@@ -21,7 +21,6 @@
 /obj/item/pda/ai
 	icon = null
 	ttone = "data"
-	fon = FALSE
 	detonatable = FALSE
 
 /obj/item/pda/ai/attack_self(mob/user)
@@ -206,3 +205,7 @@
 	name = "geneticist Pip-Boy 3000"
 	default_cartridge = /obj/item/cartridge/medical
 	icon_state = "pda-genetics"
+
+/obj/item/pda/pimp_boy_3000
+	name = "Pimp-Boy 3000"
+	icon_state = "pda-gold"
