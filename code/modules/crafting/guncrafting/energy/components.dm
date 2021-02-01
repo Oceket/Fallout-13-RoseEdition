@@ -104,8 +104,11 @@
 /obj/item/prefabs/complex/eburst/dual
 	name = "Dual Stream"
 	burst_mod = 1
-	burst_delay_mod = -0.5
+	burst_delay_mod = 1.5
 	complexity = 75
+	bullet_speed_mod = 0.1
+	// tags = list("dual")
+	// incompatible_tags = list("scatter")
 
 
 /obj/item/prefabs/complex/eburst/fast
@@ -210,7 +213,7 @@
 	desc = "An energy weapon part, a craftsman might want to have this. Advanced model of its more common predecessor."
 	icon_state = "capacitor_array"
 	complexity = 50
-	armorpen_mod = 3
+	armorpen_mod = 7
 
 
 /obj/item/advanced_crafting_components/capacitor/reflex
@@ -218,7 +221,7 @@
 	desc = "An energy weapon part, a craftsman might want to have this. It has the highest efficiecy among other models."
 	icon_state = "capacitor_reflex"
 	complexity = 75
-	armorpen_mod = 6
+	armorpen_mod = 15
 
 
 /obj/item/advanced_crafting_components/lenses
